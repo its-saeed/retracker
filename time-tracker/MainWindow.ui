@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>950</width>
+    <height>784</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="styleSheet">
+       <string notr="true">QWidget#widget{
+background-color: rgb(46, 52, 54)
+}
+QLabel
+{
+color:rgb(255,255,255);
+}</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QPushButton" name="btn_start">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>Start</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/play2.png</normaloff>:/ui/res/play2.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_stop">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>Stop</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/stop3.png</normaloff>:/ui/res/stop3.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_apply">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>Apply Time</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/upload.png</normaloff>:/ui/res/upload.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>62</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="font">
+            <font>
+             <family>Lato Thin</family>
+             <pointsize>44</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255,255);</string>
+           </property>
+           <property name="text">
+            <string>12:34</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_update_issues">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>Update Issues</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/download.png</normaloff>:/ui/res/download.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_stats">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>Statistics</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/document.png</normaloff>:/ui/res/document.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(114, 159, 207);</string>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>16</horstretch>
+             <verstretch>16</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="res.qrc">:/ui/res/statistics.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>Ubuntu</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(52, 101, 164);</string>
+           </property>
+           <property name="text">
+            <string>Today Start:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_today_start">
+           <property name="font">
+            <font>
+             <family>Lato Thin</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>34:56</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>16</horstretch>
+             <verstretch>16</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="res.qrc">:/ui/res/statistics.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <family>Ubuntu</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(52, 101, 164);</string>
+           </property>
+           <property name="text">
+            <string>Total Time:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_total_time">
+           <property name="font">
+            <font>
+             <family>Lato Thin</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>34:56</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>16</horstretch>
+             <verstretch>16</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="res.qrc">:/ui/res/statistics.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>Ubuntu</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(52, 101, 164);</string>
+           </property>
+           <property name="text">
+            <string>Efficent Time:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_efficient_time">
+           <property name="font">
+            <font>
+             <family>Lato Thin</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>34:56</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_12">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>16</horstretch>
+             <verstretch>16</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="res.qrc">:/ui/res/statistics.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Ubuntu</family>
+             <pointsize>13</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(114, 159, 207);</string>
+           </property>
+           <property name="text">
+            <string>Today's Efficiency</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QProgressBar" name="prg_efficiency">
+           <property name="font">
+            <font>
+             <family>Lato Heavy</family>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"> QProgressBar {
+background-color: rgb(226, 241, 250);
+      border: 1px solid rgb(114, 159, 207);
+border-radius:2px;
+text-align: center;
+  }
+
+  QProgressBar::chunk {
+      background-color: rgb(32, 74, 135);
+      width: 20px;
+  }</string>
+           </property>
+           <property name="value">
+            <number>24</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line_2">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(114, 159, 207);</string>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/ui/res/catalog.png</normaloff>:/ui/res/catalog.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>New</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTableWidget" name="tableWidget">
+          <column>
+           <property name="text">
+            <string>Issue Number</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Subject</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Total Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Today Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Applied Time</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/ui/res/catalog.png</normaloff>:/ui/res/catalog.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Doing</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/ui/res/catalog.png</normaloff>:/ui/res/catalog.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Returned</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/ui/res/catalog.png</normaloff>:/ui/res/catalog.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Quality Check</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>950</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>
