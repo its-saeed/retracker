@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 #include <chrono>
-#include "TimeManager.h"
+#include "IssueTimeTracker.h"
 
 using namespace testing;
 
 TEST(TimeManagerFunctionalityTest, when_adding_time_to_time_manager_total_time_should_be_sum_of_new_and_old)
 {
-	TimeManager manager;
+	IssueTimeManager manager;
 	std::chrono::minutes twenty{20};
 
 	manager.add_duration(twenty);
@@ -19,7 +19,7 @@ TEST(TimeManagerFunctionalityTest, when_adding_time_to_time_manager_total_time_s
 
 TEST(TimeManagerFunctionalityTest, unapplied_time_to_redmine_is_equal_to_total_time_minus_applied_time)
 {
-	TimeManager manager;
+	IssueTimeManager manager;
 	std::chrono::minutes eight_min{8};
 	std::chrono::minutes twelve_min{12};
 	std::chrono::minutes twenty_min{20};

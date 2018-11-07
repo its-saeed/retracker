@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    time-tracker \
     logic\
-    test
+    test\
+    time-tracker

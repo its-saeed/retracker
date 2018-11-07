@@ -7,9 +7,6 @@ class Issue
 {
 public:
 private:
-	quint32 id;
-	QString subject;
-	quint8 state;
 
 };
 

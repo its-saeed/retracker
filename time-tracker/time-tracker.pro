@@ -37,3 +37,10 @@ FORMS += \
 
 RESOURCES += \
     res.qrc
+
+unix:!macx: LIBS += -L$$OUT_PWD/../logic/ -llogic
+
+INCLUDEPATH += $$PWD/../logic
+DEPENDPATH += $$PWD/../logic
+
+unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../logic/liblogic.a

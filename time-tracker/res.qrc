@@ -1,11 +1,7 @@
 <RCC>
     <qresource prefix="/ui">
         <file>res/test.png</file>
-        <file>res/submit.png</file>
-        <file>res/reload.png</file>
-        <file>res/percent.png</file>
         <file>res/news.png</file>
-        <file>res/key.png</file>
         <file>res/catalog.png</file>
         <file>res/calendar2.png</file>
         <file>res/calendar.png</file>
@@ -20,5 +16,6 @@
         <file>res/upload.png</file>
         <file>res/stop3.png</file>
         <file>res/timer.png</file>
+        <file>res/pause.png</file>
     </qresource>
 </RCC>

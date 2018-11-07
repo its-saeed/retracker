@@ -23,13 +23,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         Logic.cpp \
-    TimeManager.cpp \
-    Issue.cpp
+    Issue.cpp \
+    Timer.cpp \
+    Statistics.cpp \
+    IssueTimeTracker.cpp
 
 HEADERS += \
         Logic.h \
-    TimeManager.h \
-    Issue.h
+    Issue.h \
+    Timer.h \
+    Statistics.h \
+    commons.h \
+    IssueTimeTracker.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

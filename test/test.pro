@@ -4,12 +4,16 @@ TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG += thread
-CONFIG -= qt
+CONFIG -= gui
+CONFIG += core
 
 HEADERS +=    
 
 SOURCES +=     main.cpp \
-    TimeManagerFunctionality.cpp
+    TimeManagerFunctionality.cpp \
+    CommonsFunctionality.cpp \
+    StatisticsFunctionality.cpp \
+    TimerFunctionality.cpp
 
 unix:!macx: LIBS += -L$$OUT_PWD/../logic/ -llogic
 
