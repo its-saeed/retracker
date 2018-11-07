@@ -13,7 +13,8 @@ SOURCES +=     main.cpp \
     TimeManagerFunctionality.cpp \
     CommonsFunctionality.cpp \
     StatisticsFunctionality.cpp \
-    TimerFunctionality.cpp
+    TimerFunctionality.cpp \
+    IssueManagerFunctionality.cpp
 
 unix:!macx: LIBS += -L$$OUT_PWD/../logic/ -llogic
 

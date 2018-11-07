@@ -159,7 +159,7 @@ color:rgb(255,255,255);
          <item>
           <widget class="QPushButton" name="btn_start">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(52, 101, 164);
@@ -186,7 +186,7 @@ color: rgb(175, 241, 255);</string>
          <item>
           <widget class="QPushButton" name="btn_pause">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(52, 101, 164);
@@ -213,7 +213,7 @@ color: rgb(175, 241, 255);</string>
          <item>
           <widget class="QPushButton" name="btn_stop">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(52, 101, 164);
@@ -240,7 +240,7 @@ color: rgb(175, 241, 255);</string>
          <item>
           <widget class="QPushButton" name="btn_dismiss">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(52, 101, 164);
@@ -429,7 +429,10 @@ color: rgb(175, 241, 255);</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="IssueTableWidget" name="tblw_new_issues">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
           <column>
            <property name="text">
             <string>Issue Number</string>
@@ -467,6 +470,40 @@ color: rgb(175, 241, 255);</string>
        <attribute name="title">
         <string>Doing</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="IssueTableWidget" name="tblw_doing_issues">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <column>
+           <property name="text">
+            <string>Issue Number</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Subject</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Total Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Applied Time to Paygir</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Unapplied Time to Paygir</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="icon">
@@ -476,6 +513,40 @@ color: rgb(175, 241, 255);</string>
        <attribute name="title">
         <string>Returned</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="IssueTableWidget" name="tblw_returned_issues">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <column>
+           <property name="text">
+            <string>Issue Number</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Subject</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Total Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Applied Time to Paygir</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Unapplied Time to Paygir</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="icon">
@@ -485,6 +556,40 @@ color: rgb(175, 241, 255);</string>
        <attribute name="title">
         <string>Quality Check</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="IssueTableWidget" name="tblw_qc_issues">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <column>
+           <property name="text">
+            <string>Issue Number</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Subject</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Total Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Applied Time to Paygir</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Unapplied Time to Paygir</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -812,9 +917,15 @@ text-align: center;
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>IssueTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header location="global">IssueTableWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="res.qrc"/>
  </resources>

@@ -26,11 +26,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-    IssueManager.cpp
+    IssueTableWidget.cpp
 
 HEADERS += \
         MainWindow.h \
-    IssueManager.h
+    IssueTableWidget.h
 
 FORMS += \
         MainWindow.ui

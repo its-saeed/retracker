@@ -3,12 +3,24 @@
 
 #include <chrono>
 #include <QString>
+#include <map>
 #include "IssueTimeTracker.h"
 
 class Issue
 {
 public:
+	typedef uint32_t Id;
+	enum State
+	{
+		NEW,
+		DOING,
+		RETURNED,
+		QUALITY_CHECK,
+		UNKNOWN
+	};
+
 	Issue();
+	Issue(Id id, const QString& subject, State state);
 	quint32 get_id() const;
 	void set_id(const quint32& value);
 
@@ -18,11 +30,20 @@ public:
 	void add_duration(const std::chrono::minutes& min);
 	bool add_applied_duration(const std::chrono::minutes& min);
 
+	std::chrono::minutes total_duration() const;
+	std::chrono::minutes total_applied_duration() const;
+	std::chrono::minutes total_unapplied_duration() const;
+
+	QString total_duration_string() const;
+	QString total_applied_duration_string() const;
+	QString total_unapplied_duration_string() const;
 private:
-	quint32 id;
+	Id id;
 	QString subject;
-	quint8 state;
+	State state;
 	IssueTimeManager manager;
 };
+
+typedef std::map<Issue::Id, Issue> IssueMap;
 
 #endif // ISSUE_H

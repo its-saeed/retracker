@@ -1,8 +1,17 @@
 #include "Issue.h"
 
 Issue::Issue()
+: id(0)
+, state(UNKNOWN)
 {
 
+}
+
+Issue::Issue(Issue::Id id, const QString& subject, Issue::State state)
+: id(id)
+, subject(subject)
+, state(state)
+{
 }
 
 quint32 Issue::get_id() const
@@ -17,7 +26,7 @@ void Issue::set_id(const quint32& value)
 
 QString Issue::get_subject() const
 {
-    return subject;
+	return subject;
 }
 
 void Issue::set_subject(const QString& value)
@@ -33,4 +42,34 @@ void Issue::add_duration(const std::chrono::minutes& min)
 bool Issue::add_applied_duration(const std::chrono::minutes& min)
 {
 	return manager.add_applied_duration(min);
+}
+
+std::chrono::minutes Issue::total_duration() const
+{
+	return manager.get_total_duration();
+}
+
+std::chrono::minutes Issue::total_applied_duration() const
+{
+	return manager.get_total_applied_duration();
+}
+
+std::chrono::minutes Issue::total_unapplied_duration() const
+{
+	return manager.get_total_unapplied_duration();
+}
+
+QString Issue::total_duration_string() const
+{
+	return manager.total_duration_string();
+}
+
+QString Issue::total_applied_duration_string() const
+{
+	return manager.total_applied_duration_string();
+}
+
+QString Issue::total_unapplied_duration_string() const
+{
+	return manager.total_unapplied_duration_string();
 }
