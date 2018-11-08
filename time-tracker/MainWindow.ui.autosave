@@ -776,7 +776,7 @@ text-align: center;
   }
 
   QProgressBar::chunk {
-      background-color: color: rgb(252, 175, 62);
+      background-color: rgb(252, 175, 62);
       width: 20px;
   }</string>
            </property>
