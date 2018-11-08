@@ -73,3 +73,25 @@ QString Issue::total_unapplied_duration_string() const
 {
 	return manager.total_unapplied_duration_string();
 }
+
+Issue::State Issue::state_from_string(const QString& state_string)
+{
+	if (state_string.trimmed() == "جدید")
+		return Issue::State::NEW;
+
+	if (state_string.trimmed() == "در حال انجام")
+		return Issue::State::DOING;
+
+	if (state_string.trimmed() == "بازخورد")
+		return Issue::State::RETURNED;
+
+	if (state_string.trimmed() == "بررسی کیفیت")
+		return Issue::State::QUALITY_CHECK;
+
+	return State::UNKNOWN;
+}
+
+Issue::State Issue::get_state() const
+{
+	return state;
+}

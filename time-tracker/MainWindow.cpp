@@ -2,6 +2,9 @@
 #include "ui_MainWindow.h"
 
 #include <QMessageBox>
+#include <QProcess>
+#include <QDebug>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent),
@@ -25,10 +28,6 @@ ui(new Ui::MainWindow)
 	connect(ui->tblw_new_issues, &IssueTableWidget::issue_selected, this, &MainWindow::on_issue_selected);
 	connect(ui->tblw_returned_issues, &IssueTableWidget::issue_selected, this, &MainWindow::on_issue_selected);
 	connect(ui->tblw_qc_issues, &IssueTableWidget::issue_selected, this, &MainWindow::on_issue_selected);
-
-	Issue issue(111, "slam", Issue::NEW);
-	ui->tblw_new_issues->add_issue(issue);
-	issue_manager.add_issue(issue);
 }
 
 MainWindow::~MainWindow()
@@ -106,17 +105,51 @@ void MainWindow::on_issue_selected(Issue::Id id)
 	if (!issue_manager.issue_exists(id))
 	{
 		QMessageBox::critical(this, "Errro", "Surprisingly issue doesn't exist. It definitly a bug!");
-//		return;
+		return;
 	}
 
 	current_table = reinterpret_cast<IssueTableWidget*>(sender());
 	ui->lbl_current_issue_number->setText(QString("<a style=\"color: rgb(252, 175, 62);\" href=\"http://projects.mahsan.co/issues/%1\">#%1</a>").arg((int)id));
 	ui->lbl_current_issue_number->setToolTip("Click to open issue.");
 	ui->lbl_current_issue_number->setOpenExternalLinks(true);
+	ui->lbl_current_issue_subject->setText(issue_manager.get_issue_by_id(id).get_subject());
 	current_issue = &issue_manager.get_issue_by_id(id);
 
 	ui->btn_start->setEnabled(true);
 	ui->btn_stop->setEnabled(false);
 	ui->btn_dismiss->setEnabled(false);
 	ui->btn_pause->setEnabled(false);
+}
+
+void MainWindow::on_btn_update_issues_clicked()
+{
+	ui->btn_update_issues->setEnabled(false);
+	QProcess process;
+	process.start("/home/user/red.py", QStringList() << "dadkhah" << "YaZahra");
+	process.waitForFinished();
+	ui->btn_update_issues->setEnabled(true);
+	qDebug() << process.readAllStandardError();
+	if (!issue_manager.load_from_file("/tmp/out.txt"))
+	{
+		QMessageBox::critical(this, "Load Issues", "Loading issues failed.");
+		return;
+	}
+
+	update_issue_tables();
+}
+
+void MainWindow::update_issue_tables()
+{
+	for (auto kv : issue_manager.get_issues())
+	{
+		const Issue& issue = kv.second;
+		if (issue.get_state() == Issue::State::NEW)
+			ui->tblw_new_issues->add_issue(issue);
+		else if (issue.get_state() == Issue::State::DOING)
+			ui->tblw_doing_issues->add_issue(issue);
+		else if (issue.get_state() == Issue::State::RETURNED)
+			ui->tblw_returned_issues->add_issue(issue);
+		else if (issue.get_state() == Issue::State::QUALITY_CHECK)
+			ui->tblw_qc_issues->add_issue(issue);
+	}
 }

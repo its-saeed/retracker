@@ -17,6 +17,8 @@ public:
 	std::chrono::minutes get_duration(Issue::Id id) const;
 	void add_duration(Issue::Id id, const std::chrono::minutes& mins);
 	bool add_applied_duration(Issue::Id id, const std::chrono::minutes& mins);
+	bool load_from_file(const QString& path);
+	const IssueMap& get_issues() const;
 
 private:
 	IssueMap issues;

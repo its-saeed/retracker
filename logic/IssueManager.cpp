@@ -1,5 +1,7 @@
 #include "IssueManager.h"
 
+#include <QFile>
+
 bool IssueManager::issue_exists(Issue::Id id) const
 {
 	return issues.find(id) != issues.end();
@@ -7,7 +9,7 @@ bool IssueManager::issue_exists(Issue::Id id) const
 
 bool IssueManager::add_issue(Issue::Id id, QString subject, Issue::State state)
 {
-	add_issue({id, subject, state});
+	return add_issue({id, subject, state});
 }
 
 bool IssueManager::add_issue(const Issue& issue)
@@ -63,3 +65,34 @@ bool IssueManager::add_applied_duration(Issue::Id id, const std::chrono::minutes
 {
 	return get_issue_by_id(id).add_applied_duration(mins);
 }
+
+bool IssueManager::load_from_file(const QString& path)
+{
+	constexpr size_t SECTION_COUNT = 3;
+	constexpr size_t ID_INDEX = 0;
+	constexpr size_t SUBJECT_INDEX = 1;
+	constexpr size_t STATUS_INDEX = 2;
+
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+		return false;
+
+	while (!file.atEnd())
+	{
+		QString line = file.readLine();
+		QStringList parts = line.split(",");
+		if (parts.size() < SECTION_COUNT)
+			return false;
+
+		Issue issue(parts.at(ID_INDEX).toInt(), parts.at(SUBJECT_INDEX), Issue::state_from_string(parts.at(STATUS_INDEX)));
+		add_issue(issue);
+	}
+
+	return true;
+}
+
+const IssueMap& IssueManager::get_issues() const
+{
+	return issues;
+}
+

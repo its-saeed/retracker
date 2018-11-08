@@ -1,4 +1,5 @@
 #include "IssueTableWidget.h"
+#include <QHeaderView>
 #include <QDebug>
 
 IssueTableWidget::IssueTableWidget(QWidget* parent)
@@ -6,6 +7,8 @@ IssueTableWidget::IssueTableWidget(QWidget* parent)
 {
 	setSelectionBehavior(QAbstractItemView::SelectRows);
 	connect(this, &IssueTableWidget::cellDoubleClicked, this, &IssueTableWidget::item_clicked);
+	auto header = horizontalHeader();
+	header->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
 void IssueTableWidget::add_issue(const Issue& issue)

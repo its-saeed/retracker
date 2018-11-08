@@ -28,7 +28,10 @@ private slots:
 	void on_btn_pause_clicked();
 	void on_issue_selected(Issue::Id id);
 
+	void on_btn_update_issues_clicked();
+
 private:
+	void update_issue_tables();
 	Ui::MainWindow *ui;
 	QTimer issue_timer;
 	QTimer update_today_duration_timer;

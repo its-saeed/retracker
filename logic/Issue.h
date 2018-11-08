@@ -37,6 +37,9 @@ public:
 	QString total_duration_string() const;
 	QString total_applied_duration_string() const;
 	QString total_unapplied_duration_string() const;
+	static Issue::State state_from_string(const QString& state_string);
+	State get_state() const;
+
 private:
 	Id id;
 	QString subject;

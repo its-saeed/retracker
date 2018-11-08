@@ -47,3 +47,12 @@ TEST(IssueManagerFunctionality, testing_getting_useful_time_by_issue_id)
 	manager.add_duration(2, std::chrono::minutes(15));
 	EXPECT_EQ(manager.get_duration(1), std::chrono::minutes(10));
 }
+
+TEST(IssueFunctionality, testing_state_string_to_enum)
+{
+	EXPECT_EQ(Issue::state_from_string("جدید"), Issue::State::NEW);
+	EXPECT_EQ(Issue::state_from_string("در حال انجام"), Issue::State::DOING);
+	EXPECT_EQ(Issue::state_from_string("بازخورد"), Issue::State::RETURNED);
+	EXPECT_EQ(Issue::state_from_string("بررسی کیفیت"), Issue::State::QUALITY_CHECK);
+	EXPECT_EQ(Issue::state_from_string("کیفیت"), Issue::State::UNKNOWN);
+}
