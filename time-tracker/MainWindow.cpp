@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "UserPassDialog.h"
 
 #include <QMessageBox>
 #include <QProcess>
@@ -123,9 +124,16 @@ void MainWindow::on_issue_selected(Issue::Id id)
 
 void MainWindow::on_btn_update_issues_clicked()
 {
+	UserPassDialog dlg;
+	if (dlg.exec() == QDialog::Rejected)
+		return;
+
+	const QString username = dlg.get_user_name();
+	const QString password = dlg.get_password();
+
 	ui->btn_update_issues->setEnabled(false);
 	QProcess process;
-	process.start("/home/user/red.py", QStringList() << "dadkhah" << "YaZahra");
+	process.start("/home/user/red.py", QStringList() << username << password);
 	process.waitForFinished();
 	ui->btn_update_issues->setEnabled(true);
 	qDebug() << process.readAllStandardError();

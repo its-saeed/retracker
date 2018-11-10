@@ -28,7 +28,8 @@ SOURCES += \
     Timer.cpp \
     Statistics.cpp \
     IssueTimeTracker.cpp \
-    IssueManager.cpp
+    IssueManager.cpp \
+    Settings.cpp
 
 HEADERS += \
         Logic.h \
@@ -37,7 +38,8 @@ HEADERS += \
     Statistics.h \
     commons.h \
     IssueTimeTracker.h \
-    IssueManager.h
+    IssueManager.h \
+    Settings.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

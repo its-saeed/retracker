@@ -64,6 +64,180 @@ color:rgb(255,255,255);
           <number>9</number>
          </property>
          <item>
+          <widget class="QPushButton" name="btn_start">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>B Yekan</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>شروع</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/play2.png</normaloff>:/ui/res/play2.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_pause">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>B Yekan</family>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>مکث</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/pause.png</normaloff>:/ui/res/pause.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_stop">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>B Yekan</family>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>خاتمه</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/stop3.png</normaloff>:/ui/res/stop3.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_dismiss">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>B Yekan</family>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(52, 101, 164);
+color: rgb(175, 241, 255);</string>
+           </property>
+           <property name="text">
+            <string>بی‌خیال</string>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/stop3.png</normaloff>:/ui/res/stop3.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_5">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>10</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(114, 159, 207);</string>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>2</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QGridLayout" name="gridLayout_2">
            <property name="topMargin">
             <number>9</number>
@@ -147,7 +321,10 @@ color:rgb(255,255,255);
             <widget class="QLabel" name="lbl_current_issue_subject">
              <property name="font">
               <font>
-               <family>KacstOne</family>
+               <family>B Yekan</family>
+               <pointsize>13</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
               </font>
              </property>
              <property name="layoutDirection">
@@ -165,177 +342,6 @@ color:rgb(255,255,255);
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="Line" name="line_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>10</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(114, 159, 207);</string>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>2</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_dismiss">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
-color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>بی‌خیال</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/stop3.png</normaloff>:/ui/res/stop3.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_stop">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
-color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>خاتمه</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/stop3.png</normaloff>:/ui/res/stop3.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_pause">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
-color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>توقف</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/pause.png</normaloff>:/ui/res/pause.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_start">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
-color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>شروع</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/play2.png</normaloff>:/ui/res/play2.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>64</width>
-             <height>64</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>
@@ -373,7 +379,7 @@ color: rgb(175, 241, 255);</string>
           <widget class="QPushButton" name="btn_stats_2">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
             </font>
            </property>
            <property name="layoutDirection">
@@ -405,7 +411,7 @@ color: rgb(175, 241, 255);</string>
           <widget class="QPushButton" name="btn_stats">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
             </font>
            </property>
            <property name="layoutDirection">
@@ -437,7 +443,7 @@ color: rgb(175, 241, 255);</string>
           <widget class="QPushButton" name="btn_update_issues">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
             </font>
            </property>
            <property name="layoutDirection">
@@ -472,7 +478,7 @@ color: rgb(175, 241, 255);</string>
            </property>
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
             </font>
            </property>
            <property name="layoutDirection">
@@ -509,7 +515,7 @@ color: rgb(175, 241, 255);</string>
      <widget class="QTabWidget" name="tabWidget">
       <property name="font">
        <font>
-        <family>KacstOne</family>
+        <family>B Yekan</family>
        </font>
       </property>
       <property name="layoutDirection">
@@ -776,7 +782,7 @@ text-align: center;
   }
 
   QProgressBar::chunk {
-      background-color: color: rgb(252, 175, 62);
+      background-color: rgb(252, 175, 62);
       width: 20px;
   }</string>
            </property>

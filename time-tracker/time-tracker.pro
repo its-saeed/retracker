@@ -26,14 +26,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-    IssueTableWidget.cpp
+    IssueTableWidget.cpp \
+    UserPassDialog.cpp
 
 HEADERS += \
         MainWindow.h \
-    IssueTableWidget.h
+    IssueTableWidget.h \
+    UserPassDialog.h
 
 FORMS += \
-        MainWindow.ui
+        MainWindow.ui \
+    UserPassDialog.ui
 
 RESOURCES += \
     res.qrc
