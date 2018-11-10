@@ -21,9 +21,7 @@ ui(new Ui::MainWindow)
 	update_today_start();
 	update_ui_today_time_and_efficiency();
 
-	issue_timer.setInterval(1000);
 	update_today_duration_timer.setInterval(1000 * 60);
-	connect(&issue_timer, &QTimer::timeout, this, &MainWindow::on_issue_timer_timed_out);
 	connect(&update_today_duration_timer, &QTimer::timeout, [this](){
 		this->update_today_start();
 		this->update_ui_today_time_and_efficiency();
@@ -34,6 +32,8 @@ ui(new Ui::MainWindow)
 	connect(ui->tblw_new_issues, &IssueTableWidget::issue_selected, this, &MainWindow::on_issue_selected);
 	connect(ui->tblw_returned_issues, &IssueTableWidget::issue_selected, this, &MainWindow::on_issue_selected);
 	connect(ui->tblw_qc_issues, &IssueTableWidget::issue_selected, this, &MainWindow::on_issue_selected);
+	connect(ui->wdg_stop_watch, &StopWatchWidget::stopped, this, &MainWindow::on_stop_watch_stopped);
+	connect(ui->wdg_stop_watch, &StopWatchWidget::dismissed, this, &MainWindow::on_stop_watch_dismissed);
 }
 
 MainWindow::~MainWindow()
@@ -41,67 +41,9 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
-void MainWindow::on_btn_start_clicked()
-{
-	issue_timer.start();
-	ui->btn_start->setEnabled(false);
-	ui->btn_stop->setEnabled(true);
-	ui->btn_dismiss->setEnabled(true);
-	ui->btn_pause->setEnabled(true);
-}
-
-void MainWindow::on_issue_timer_timed_out()
-{
-	stop_watch.tick();
-	ui->lbl_current_issue_timer->setText(QString::fromStdString(this->stop_watch.to_string()));
-}
-
-void MainWindow::on_btn_stop_clicked()
-{
-	issue_timer.stop();
-	today_stats.add_useful_duration(stop_watch.get_minutes());
-	issue_manager.add_duration(current_issue->get_id(), stop_watch.get_minutes());
-	update_ui_today_time_and_efficiency();
-	stop_watch.reset();
-	ui->lbl_current_issue_timer->setText("00:00:00");
-	if (current_table)
-		current_table->update_issue(*current_issue);
-
-	ui->btn_start->setEnabled(true);
-	ui->btn_stop->setEnabled(false);
-	ui->btn_dismiss->setEnabled(false);
-	ui->btn_pause->setEnabled(false);
-}
-
-void MainWindow::on_btn_dismiss_clicked()
-{
-	int answer = QMessageBox::question(this, "Dismiss time slice", "You are about to dismiss current useful time. It means this time "
-	"slice will not be calculated as useful time! Are you sure?");
-	if (answer != QMessageBox::Yes)
-		return;
-
-	issue_timer.stop();
-	ui->prg_efficiency->setValue(today_stats.today_efficiency(QTime::currentTime()));
-	stop_watch.reset();
-
-	ui->btn_start->setEnabled(true);
-	ui->btn_stop->setEnabled(false);
-	ui->btn_dismiss->setEnabled(false);
-	ui->btn_pause->setEnabled(false);
-}
-
-void MainWindow::on_btn_pause_clicked()
-{
-	issue_timer.stop();
-	ui->btn_start->setEnabled(true);
-	ui->btn_stop->setEnabled(true);
-	ui->btn_dismiss->setEnabled(true);
-	ui->btn_pause->setEnabled(false);
-}
-
 void MainWindow::on_issue_selected(Issue::Id id)
 {
-	if (issue_timer.isActive())
+	if (ui->wdg_stop_watch->is_active())
 	{
 		QMessageBox::warning(this, "Tracker", "Please stop current timer to start working on new issue!");
 		return;
@@ -114,16 +56,8 @@ void MainWindow::on_issue_selected(Issue::Id id)
 	}
 
 	current_table = reinterpret_cast<IssueTableWidget*>(sender());
-	ui->lbl_current_issue_number->setText(QString("<a style=\"color: rgb(252, 175, 62);\" href=\"http://projects.mahsan.co/issues/%1\">#%1</a>").arg((int)id));
-	ui->lbl_current_issue_number->setToolTip("Click to open issue.");
-	ui->lbl_current_issue_number->setOpenExternalLinks(true);
-	ui->lbl_current_issue_subject->setText(issue_manager.get_issue_by_id(id).get_subject());
 	current_issue = &issue_manager.get_issue_by_id(id);
-
-	ui->btn_start->setEnabled(true);
-	ui->btn_stop->setEnabled(false);
-	ui->btn_dismiss->setEnabled(false);
-	ui->btn_pause->setEnabled(false);
+	ui->wdg_stop_watch->set_current_issue(QString::number(current_issue->get_id()), current_issue->get_subject());
 }
 
 void MainWindow::on_btn_update_issues_clicked()
@@ -210,5 +144,21 @@ void MainWindow::on_btn_change_day_start_clicked()
 	QTime user_entered_time = dlg.get_time();
 	today.setTime(user_entered_time);
 	change_today_start_to(today);
+	update_ui_today_time_and_efficiency();
+}
+
+void MainWindow::on_stop_watch_stopped()
+{
+	std::chrono::minutes ellapsed_minutes = ui->wdg_stop_watch->get_minutes();
+	today_stats.add_useful_duration(ellapsed_minutes);
+	issue_manager.add_duration(current_issue->get_id(), ellapsed_minutes);
+	update_ui_today_time_and_efficiency();
+	if (current_table)
+		current_table->update_issue(*current_issue);
+
+}
+
+void MainWindow::on_stop_watch_dismissed()
+{
 	update_ui_today_time_and_efficiency();
 }

@@ -162,8 +162,8 @@ background-color: rgb(46, 52, 54)
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>230</x>
-     <y>82</y>
+     <x>37</x>
+     <y>94</y>
     </hint>
     <hint type="destinationlabel">
      <x>180</x>
