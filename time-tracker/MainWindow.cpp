@@ -61,8 +61,7 @@ void MainWindow::on_btn_stop_clicked()
 	issue_timer.stop();
 	today_stats.add_useful_duration(stop_watch.get_minutes());
 	issue_manager.add_duration(current_issue->get_id(), stop_watch.get_minutes());
-	ui->lbl_total_useful_time->setText(today_stats.useful_duration_string());
-	ui->prg_efficiency->setValue(today_stats.today_efficiency(QTime::currentTime()));
+	update_ui_today_time_and_efficiency();
 	stop_watch.reset();
 	ui->lbl_current_issue_timer->setText("00:00:00");
 	if (current_table)
@@ -129,7 +128,7 @@ void MainWindow::on_issue_selected(Issue::Id id)
 
 void MainWindow::on_btn_update_issues_clicked()
 {
-	UserPassDialog dlg;
+	UserPassDialog dlg(this);
 	if (dlg.exec() == QDialog::Rejected)
 		return;
 
@@ -137,17 +136,20 @@ void MainWindow::on_btn_update_issues_clicked()
 	const QString password = dlg.get_password();
 
 	ui->btn_update_issues->setEnabled(false);
+	setCursor(Qt::BusyCursor);
 	QProcess process;
 	process.start("/home/user/red.py", QStringList() << username << password);
 	process.waitForFinished();
-	ui->btn_update_issues->setEnabled(true);
+	setCursor(Qt::ArrowCursor);
 	qDebug() << process.readAllStandardError();
 	if (!issue_manager.load_from_file("/tmp/out.txt"))
 	{
 		QMessageBox::critical(this, "Load Issues", "Loading issues failed.");
+		ui->btn_update_issues->setEnabled(true);
 		return;
 	}
 
+	ui->btn_update_issues->setEnabled(true);
 	update_issue_tables();
 }
 

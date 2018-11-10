@@ -7,5 +7,6 @@ int main(int argc, char *argv[])
 	MainWindow w;
 	w.show();
 
+	w.on_btn_update_issues_clicked();
 	return a.exec();
 }

@@ -20,6 +20,8 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+public slots:
+	void on_btn_update_issues_clicked();
 private slots:
 	void on_btn_start_clicked();
 	void on_issue_timer_timed_out();
@@ -27,9 +29,6 @@ private slots:
 	void on_btn_dismiss_clicked();
 	void on_btn_pause_clicked();
 	void on_issue_selected(Issue::Id id);
-
-	void on_btn_update_issues_clicked();
-
 	void on_btn_change_day_start_clicked();
 
 private:
