@@ -1,5 +1,7 @@
 #include "Settings.h"
 
+#include <QDateTime>
+
 Settings::Settings()
 : QSettings(QString(ORGANIATION_NAME), QString(APPLICATION_NAME))
 {
@@ -33,6 +35,16 @@ void Settings::set_remember_userpass(bool remember)
 bool Settings::remember_userpass() const
 {
 	return value(USER_PASSWORD_REMEMBER, false).toBool();
+}
+
+void Settings::save_today(const QDateTime& today)
+{
+	setValue(TODAY_KEY, today);
+}
+
+QDateTime Settings::get_today() const
+{
+	return value(TODAY_KEY, QDateTime()).toDateTime();
 }
 
 Settings& Settings::instance()

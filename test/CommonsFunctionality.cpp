@@ -46,3 +46,30 @@ TEST(CommonsFunctionality, converting_one_minute_string)
 
 	EXPECT_EQ(commons::to_string(one_min), "00:01");
 }
+
+TEST(CommonsFunctionality, get_today_when_previous_is_null_should_return_current_date)
+{
+	const QDateTime current = QDateTime::currentDateTime();
+	EXPECT_EQ(commons::get_today(current), current);
+}
+
+TEST(CommonsFunctionality, get_today_should_return_current_date_if_both_prev_and_current_date_are_in_same_day_and_current_bigger_prev)
+{
+	const QDateTime current = QDateTime(QDate(2018, 10, 10), QTime(10, 30, 0));
+	const QDateTime prev = QDateTime(QDate(2018, 10, 10), QTime(10, 00, 0));
+	EXPECT_EQ(commons::get_today(current, prev), prev);
+}
+
+TEST(CommonsFunctionality, get_today_should_return_invalid_date_if_both_prev_and_current_date_are_in_same_day_and_current_smaller_prev)
+{
+	const QDateTime prev = QDateTime(QDate(2018, 10, 10), QTime(10, 30, 0));
+	const QDateTime current = QDateTime(QDate(2018, 10, 10), QTime(10, 00, 0));
+	EXPECT_EQ(commons::get_today(current, prev), QDateTime());
+}
+
+TEST(CommonsFunctionality, get_today_should_return_invalid_date_if_prev_and_current_date_are_not_in_same_date)
+{
+	const QDateTime prev = QDateTime(QDate(2018, 10, 15), QTime(10, 30, 0));
+	const QDateTime current = QDateTime(QDate(2018, 10, 10), QTime(10, 30, 0));
+	EXPECT_EQ(commons::get_today(current, prev), QDateTime());
+}

@@ -30,8 +30,13 @@ private slots:
 
 	void on_btn_update_issues_clicked();
 
+	void on_btn_change_day_start_clicked();
+
 private:
+	void update_ui_today_time_and_efficiency();
 	void update_issue_tables();
+	void update_today_start();
+	void change_today_start_to(const QDateTime& today);
 	Ui::MainWindow *ui;
 	QTimer issue_timer;
 	QTimer update_today_duration_timer;

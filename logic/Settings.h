@@ -17,6 +17,9 @@ public:
 	void set_remember_userpass(bool remember);
 	bool remember_userpass() const;
 
+	void save_today(const QDateTime& today);
+	QDateTime get_today() const;
+
 private:
 	Settings();
 	static constexpr const char* ORGANIATION_NAME = "Mahsan";
@@ -26,6 +29,9 @@ private:
 	static constexpr const char* USER_USERNAME_KEY = "user/name";
 	static constexpr const char* USER_PASSWORD_KEY = "user/pass";
 	static constexpr const char* USER_PASSWORD_REMEMBER = "user/remember_userpass";
+
+	// Date and time keys
+	static constexpr const char* TODAY_KEY = "datetime/today";
 
 };
 

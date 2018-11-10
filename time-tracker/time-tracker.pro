@@ -27,16 +27,19 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
     IssueTableWidget.cpp \
-    UserPassDialog.cpp
+    UserPassDialog.cpp \
+    TimePickerDialog.cpp
 
 HEADERS += \
         MainWindow.h \
     IssueTableWidget.h \
-    UserPassDialog.h
+    UserPassDialog.h \
+    TimePickerDialog.h
 
 FORMS += \
         MainWindow.ui \
-    UserPassDialog.ui
+    UserPassDialog.ui \
+    TimePickerDialog.ui
 
 RESOURCES += \
     res.qrc

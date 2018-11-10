@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserPassDialog</class>
- <widget class="QDialog" name="UserPassDialog">
+ <class>TimePickerDialog</class>
+ <widget class="QDialog" name="TimePickerDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>405</width>
-    <height>128</height>
+    <width>443</width>
+    <height>77</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,9 +38,6 @@ background-color: rgb(46, 52, 54)
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="led_user"/>
-        </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label">
           <property name="font">
@@ -52,37 +49,12 @@ background-color: rgb(46, 52, 54)
            <string notr="true">color: rgb(252, 233, 79);</string>
           </property>
           <property name="text">
-           <string>نام کاربری:</string>
-          </property>
-          <property name="buddy">
-           <cstring>led_user</cstring>
+           <string>ساعت شروع امروز صحیح نیست. لطفا شروع امروز را وارد کنید:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLineEdit" name="led_pass">
-          <property name="echoMode">
-           <enum>QLineEdit::Password</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_2">
-          <property name="font">
-           <font>
-            <family>B Yekan</family>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(252, 233, 79);</string>
-          </property>
-          <property name="text">
-           <string>کلمه عبور:</string>
-          </property>
-          <property name="buddy">
-           <cstring>led_pass</cstring>
-          </property>
-         </widget>
+        <item row="0" column="0">
+         <widget class="QTimeEdit" name="te_today"/>
         </item>
        </layout>
       </item>
@@ -128,24 +100,6 @@ background-color: rgb(46, 52, 54)
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="QCheckBox" name="chb_remember">
-          <property name="font">
-           <font>
-            <family>B Yekan</family>
-           </font>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::RightToLeft</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(114, 159, 207);</string>
-          </property>
-          <property name="text">
-           <string>به خاطر داشته باش</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -158,16 +112,16 @@ background-color: rgb(46, 52, 54)
   <connection>
    <sender>pushButton_2</sender>
    <signal>clicked()</signal>
-   <receiver>UserPassDialog</receiver>
+   <receiver>TimePickerDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>230</x>
-     <y>82</y>
+     <x>66</x>
+     <y>98</y>
     </hint>
     <hint type="destinationlabel">
-     <x>180</x>
-     <y>98</y>
+     <x>92</x>
+     <y>140</y>
     </hint>
    </hints>
   </connection>

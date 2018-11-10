@@ -11,7 +11,7 @@ QString Statistics::day_start_string() const
 	return day_start.toString();
 }
 
-void Statistics::set_day_start(const QTime time)
+void Statistics::set_day_start(const QTime& time)
 {
 	day_start = time;
 }
