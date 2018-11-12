@@ -10,8 +10,16 @@
     <height>892</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>B Yekan</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Tracker</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -131,7 +139,7 @@ color: rgb(175, 241, 255);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_stats">
+          <widget class="QPushButton" name="btn_add_issue">
            <property name="font">
             <font>
              <family>B Yekan</family>
@@ -145,7 +153,7 @@ color: rgb(175, 241, 255);</string>
 color: rgb(175, 241, 255);</string>
            </property>
            <property name="text">
-            <string>آمار</string>
+            <string>افزودن مسئله</string>
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
@@ -195,9 +203,9 @@ color: rgb(175, 241, 255);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_apply">
+          <widget class="QPushButton" name="btn_apply_times">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="font">
             <font>
@@ -235,7 +243,67 @@ color: rgb(175, 241, 255);</string>
      </widget>
     </item>
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chb_add_if_not_exist">
+        <property name="toolTip">
+         <string>در صورتی که مسئله مورد نظر در جداول پیدا نشد، تلاش کن آن را از پیگیر بارگیری کنی</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>اضافه شدن مسئله در صورت نبودن در جداول</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="led_filter">
+        <property name="font">
+         <font>
+          <family>B Yekan</family>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="font">
+         <font>
+          <family>B Yekan</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>غربال (شماره مسئله، موضوع مسئله و...) :</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabw_issue_tables">
       <property name="font">
        <font>
         <family>B Yekan</family>
@@ -442,6 +510,49 @@ color:rgb(255,255,255);
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
+          <widget class="QProgressBar" name="prg_efficiency">
+           <property name="font">
+            <font>
+             <family>Lato Heavy</family>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"> QProgressBar {
+      border: 1px solid rgb(114, 159, 207);
+border-radius:2px;
+text-align: center;
+  }
+
+  QProgressBar::chunk {
+      background-color: rgb(252, 175, 62);
+      width: 20px;
+  }</string>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>KacstOne</family>
+             <pointsize>13</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(114, 159, 207);</string>
+           </property>
+           <property name="text">
+            <string>درصد بهره‌وری امروز</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_12">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -471,53 +582,57 @@ color:rgb(255,255,255);
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-             <pointsize>13</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(114, 159, 207);</string>
-           </property>
-           <property name="text">
-            <string>درصد بهره‌وری امروز</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QProgressBar" name="prg_efficiency">
-           <property name="font">
-            <font>
-             <family>Lato Heavy</family>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> QProgressBar {
-      border: 1px solid rgb(114, 159, 207);
-border-radius:2px;
-text-align: center;
-  }
-
-  QProgressBar::chunk {
-      background-color: rgb(252, 175, 62);
-      width: 20px;
-  }</string>
-           </property>
-           <property name="value">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btn_change_day_start">
+           <property name="toolTip">
+            <string>تغییر شروع امروز</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/ui/res/edit.png</normaloff>:/ui/res/edit.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_today_start">
+           <property name="font">
+            <font>
+             <family>Lato Thin</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>34:56</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>KacstOne</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(52, 101, 164);</string>
+           </property>
+           <property name="text">
+            <string>شروع امروز</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QLabel" name="label_11">
            <property name="sizePolicy">
@@ -549,7 +664,35 @@ text-align: center;
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_2">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_today_duration">
+           <property name="font">
+            <font>
+             <family>Lato Thin</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>00:00</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
            <property name="font">
             <font>
              <family>KacstOne</family>
@@ -562,51 +705,9 @@ text-align: center;
             <string notr="true">color: rgb(52, 101, 164);</string>
            </property>
            <property name="text">
-            <string>شروع امروز</string>
+            <string>کل کارکرد امروز</string>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lbl_today_start">
-           <property name="font">
-            <font>
-             <family>Lato Thin</family>
-             <pointsize>12</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>34:56</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_change_day_start">
-           <property name="toolTip">
-            <string>تغییر شروع امروز</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/edit.png</normaloff>:/ui/res/edit.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
          <item>
           <widget class="QLabel" name="label_9">
@@ -639,25 +740,20 @@ text-align: center;
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_3">
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-             <pointsize>11</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(52, 101, 164);</string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
            </property>
-           <property name="text">
-            <string>کل کارکرد امروز</string>
-           </property>
-          </widget>
+          </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="lbl_today_duration">
+          <widget class="QLabel" name="lbl_total_useful_time">
            <property name="font">
             <font>
              <family>Lato Thin</family>
@@ -672,17 +768,22 @@ text-align: center;
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>KacstOne</family>
+             <pointsize>11</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(52, 101, 164);</string>
            </property>
-          </spacer>
+           <property name="text">
+            <string>مدت زمان کار مفید</string>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_10">
@@ -711,39 +812,6 @@ text-align: center;
            </property>
            <property name="scaledContents">
             <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="font">
-            <font>
-             <family>KacstOne</family>
-             <pointsize>11</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(52, 101, 164);</string>
-           </property>
-           <property name="text">
-            <string>مدت زمان کار مفید</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lbl_total_useful_time">
-           <property name="font">
-            <font>
-             <family>Lato Thin</family>
-             <pointsize>12</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>00:00</string>
            </property>
           </widget>
          </item>

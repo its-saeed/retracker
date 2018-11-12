@@ -13,6 +13,9 @@ IssueTableWidget::IssueTableWidget(QWidget* parent)
 
 void IssueTableWidget::add_issue(const Issue& issue)
 {
+	if (issue_id_to_table_row_map.contains(issue.get_id()))
+		return;
+
 	int row_count = rowCount();
 	setRowCount(row_count + 1);
 

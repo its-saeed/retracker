@@ -29,20 +29,23 @@ SOURCES += \
     IssueTableWidget.cpp \
     UserPassDialog.cpp \
     TimePickerDialog.cpp \
-    StopWatchWidget.cpp
+    StopWatchWidget.cpp \
+    ApplyTimeToPaygirDialog.cpp
 
 HEADERS += \
         MainWindow.h \
     IssueTableWidget.h \
     UserPassDialog.h \
     TimePickerDialog.h \
-    StopWatchWidget.h
+    StopWatchWidget.h \
+    ApplyTimeToPaygirDialog.h
 
 FORMS += \
         MainWindow.ui \
     UserPassDialog.ui \
     TimePickerDialog.ui \
-    StopWatchWidget.ui
+    StopWatchWidget.ui \
+    ApplyTimeToPaygirDialog.ui
 
 RESOURCES += \
     res.qrc

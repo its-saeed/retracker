@@ -210,50 +210,6 @@ color: rgb(175, 241, 255);</string>
        <property name="topMargin">
         <number>9</number>
        </property>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_9">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="lbl_current_issue_number">
-         <property name="font">
-          <font>
-           <family>Lato Thin</family>
-           <pointsize>44</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(252, 175, 62);</string>
-         </property>
-         <property name="text">
-          <string>#No Issue</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="3">
         <widget class="QLabel" name="lbl_current_issue_timer">
          <property name="font">
@@ -285,7 +241,38 @@ color: rgb(175, 241, 255);</string>
          </property>
         </spacer>
        </item>
-       <item row="1" column="0" colspan="5">
+       <item row="0" column="5">
+        <widget class="QLabel" name="lbl_current_issue_number">
+         <property name="font">
+          <font>
+           <family>Lato Thin</family>
+           <pointsize>44</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(252, 175, 62);</string>
+         </property>
+         <property name="text">
+          <string>#No Issue</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0" colspan="7">
         <widget class="QLabel" name="lbl_current_issue_subject">
          <property name="font">
           <font>
@@ -308,6 +295,19 @@ color: rgb(175, 241, 255);</string>
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item row="0" column="0" colspan="3">
+        <spacer name="horizontalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>

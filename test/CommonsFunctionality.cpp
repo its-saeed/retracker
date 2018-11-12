@@ -73,3 +73,18 @@ TEST(CommonsFunctionality, get_today_should_return_invalid_date_if_prev_and_curr
 	const QDateTime current = QDateTime(QDate(2018, 10, 10), QTime(10, 30, 0));
 	EXPECT_EQ(commons::get_today(current, prev), QDateTime());
 }
+
+TEST(CommonsFunctionality, testing_valid_time_to_double)
+{
+	EXPECT_NEAR(commons::time_to_double("3:30"), 3.5, 0.001);
+}
+
+TEST(CommonsFunctionality, invalid_delimiter_should_return_zero)
+{
+	EXPECT_NEAR(commons::time_to_double("3,30"), 0, 0.001);
+}
+
+TEST(CommonsFunctionality, invalid_time_should_return_zero)
+{
+	EXPECT_NEAR(commons::time_to_double("3:70"), 0, 0.001);
+}

@@ -7,6 +7,7 @@
 #include "IssueManager.h"
 
 class IssueTableWidget;
+class QTableWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -28,11 +29,25 @@ private slots:
 	void on_stop_watch_stopped();
 	void on_stop_watch_dismissed();
 
+	void on_btn_apply_times_clicked();
+
+	void on_btn_add_issue_clicked();
+
+	bool filter_issues(const QString& filter);
+	void on_led_filter_returnPressed();
+
+protected:
+	void keyPressEvent(QKeyEvent *event);
+
 private:
 	void update_ui_today_time_and_efficiency();
 	void update_issue_tables();
 	void update_today_start();
 	void change_today_start_to(const QDateTime& today);
+	bool load_issue_from_peygir(int issue_id);
+
+	bool find_issue_in(int table_index, QTableWidget* table, const QString& filter);
+
 	Ui::MainWindow *ui;
 	QTimer update_today_duration_timer;
 	Statistics today_stats;
