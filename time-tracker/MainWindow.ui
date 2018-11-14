@@ -111,6 +111,9 @@ color:rgb(255,255,255);
            <property name="font">
             <font>
              <family>B Yekan</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="layoutDirection">
@@ -143,6 +146,9 @@ color: rgb(175, 241, 255);</string>
            <property name="font">
             <font>
              <family>B Yekan</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="layoutDirection">
@@ -175,6 +181,9 @@ color: rgb(175, 241, 255);</string>
            <property name="font">
             <font>
              <family>B Yekan</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="layoutDirection">
@@ -210,6 +219,9 @@ color: rgb(175, 241, 255);</string>
            <property name="font">
             <font>
              <family>B Yekan</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="layoutDirection">
@@ -265,6 +277,13 @@ color: rgb(175, 241, 255);</string>
       </item>
       <item>
        <widget class="QCheckBox" name="chb_add_if_not_exist">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="toolTip">
          <string>در صورتی که مسئله مورد نظر در جداول پیدا نشد، تلاش کن آن را از پیگیر بارگیری کنی</string>
         </property>
@@ -286,16 +305,7 @@ color: rgb(175, 241, 255);</string>
           <family>B Yekan</family>
          </font>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="font">
-         <font>
-          <family>B Yekan</family>
-         </font>
-        </property>
-        <property name="text">
+        <property name="placeholderText">
          <string>غربال (شماره مسئله، موضوع مسئله و...) :</string>
         </property>
        </widget>
@@ -307,6 +317,7 @@ color: rgb(175, 241, 255);</string>
       <property name="font">
        <font>
         <family>B Yekan</family>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="layoutDirection">
@@ -540,7 +551,7 @@ text-align: center;
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
              <pointsize>13</pointsize>
             </font>
            </property>
@@ -619,7 +630,7 @@ text-align: center;
           <widget class="QLabel" name="label_2">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
              <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>
@@ -695,7 +706,7 @@ text-align: center;
           <widget class="QLabel" name="label_3">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
              <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>
@@ -771,7 +782,7 @@ text-align: center;
           <widget class="QLabel" name="label_4">
            <property name="font">
             <font>
-             <family>KacstOne</family>
+             <family>B Yekan</family>
              <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>

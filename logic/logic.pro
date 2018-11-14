@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT += sql
 
 TARGET = logic
 TEMPLATE = lib
@@ -29,7 +30,8 @@ SOURCES += \
     Statistics.cpp \
     IssueTimeTracker.cpp \
     IssueManager.cpp \
-    Settings.cpp
+    Settings.cpp \
+    DatabaseManager.cpp
 
 HEADERS += \
         Logic.h \
@@ -39,7 +41,10 @@ HEADERS += \
     commons.h \
     IssueTimeTracker.h \
     IssueManager.h \
-    Settings.h
+    Settings.h \
+    DatabaseManager.h
+
+LIBS += -lQt5Sql
 unix {
     target.path = /usr/lib
     INSTALLS += target

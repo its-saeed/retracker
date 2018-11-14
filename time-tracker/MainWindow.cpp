@@ -14,6 +14,7 @@
 #include "ApplyTimeToPaygirDialog.h"
 #include "commons.h"
 #include "Settings.h"
+#include "DatabaseManager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent),
@@ -21,6 +22,8 @@ ui(new Ui::MainWindow)
 , current_issue(nullptr)
 , current_table(nullptr)
 {
+	DatabaseManager db;
+	db.open_database("saeed");
 	ui->setupUi(this);
 	update_today_start();
 	update_ui_today_time_and_efficiency();
@@ -174,7 +177,12 @@ bool MainWindow::filter_issues(const QString& filter)
 
 void MainWindow::on_led_filter_returnPressed()
 {
+	ui->led_filter->selectAll();
 	if (filter_issues(this->ui->led_filter->text()))
+		return;
+
+	// Trying to add it to peygir if user wants
+	if (!ui->chb_add_if_not_exist->isChecked())
 		return;
 
 	bool is_num;
@@ -182,15 +190,11 @@ void MainWindow::on_led_filter_returnPressed()
 	if (!issue_id)
 		return;
 
-	if (!ui->chb_add_if_not_exist->isChecked())
-		return;
-
 	if (this->load_issue_from_peygir(issue_id))
 	{
 		update_issue_tables();		// TODO: change with more efficient method
 		filter_issues(QString::number(issue_id));
 	}
-	ui->led_filter->selectAll();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event)

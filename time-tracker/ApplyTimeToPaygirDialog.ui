@@ -25,6 +25,7 @@ background-color: rgb(46, 52, 54)
      <property name="font">
       <font>
        <family>B Yekan</family>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="layoutDirection">
@@ -71,6 +72,7 @@ background-color: rgb(46, 52, 54)
        <property name="font">
         <font>
          <family>B Yekan</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -93,6 +95,7 @@ background-color: rgb(46, 52, 54)
        <property name="font">
         <font>
          <family>B Yekan</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
