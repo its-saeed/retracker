@@ -13,6 +13,11 @@ void IssueTimeManager::add_duration(const std::chrono::minutes& min)
 	total_useful_duration += min;
 }
 
+void IssueTimeManager::set_total_spent_time(const std::chrono::minutes& min)
+{
+	total_useful_duration = min;
+}
+
 std::chrono::minutes IssueTimeManager::get_total_duration() const
 {
 	return total_useful_duration;
@@ -30,6 +35,11 @@ bool IssueTimeManager::add_applied_duration(const std::chrono::minutes& min)
 
 	total_applied_to_peygir_duration += min;
 	return true;
+}
+
+void IssueTimeManager::set_total_applied_to_redmine_time(const std::chrono::minutes& min)
+{
+	total_applied_to_peygir_duration = min;
 }
 
 std::chrono::minutes IssueTimeManager::get_total_applied_duration() const

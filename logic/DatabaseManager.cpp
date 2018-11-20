@@ -43,6 +43,7 @@ bool DatabaseManager::create_tables()
 	const QString issues_table_query("CREATE TABLE issues ("
 														  "id	INTEGER NOT NULL UNIQUE,"
 														  "subject	TEXT NOT NULL,"
+														  "state INTEGER,"
 														  "total_spent_time	INTEGER,"
 														  "total_applied_to_redmine_time	INTEGER,"
 														  "tags	TEXT,"
@@ -68,9 +69,10 @@ bool DatabaseManager::drop_database()
 
 bool DatabaseManager::add_issue(const Issue& issue)
 {
-	static constexpr const char* INSERT_TO_ISSUES_TABLE = "INSERT INTO issues values(%1, '%2', %3, %4)";
+	static constexpr const char* INSERT_TO_ISSUES_TABLE = "INSERT INTO issues values(%1, '%2', %3, %4, %5, '')";
 	QString query_string = QString(INSERT_TO_ISSUES_TABLE)
 			.arg(issue.get_id())
+			.arg(issue.get_subject())
 			.arg(issue.get_state())
 			.arg(issue.total_duration().count())
 			.arg(issue.total_applied_duration().count());
@@ -110,6 +112,25 @@ IssueMap DatabaseManager::all_issues()
 	return IssueMap();
 }
 
+Issue DatabaseManager::get_issue_by_id(Issue::Id id)
+{
+	static constexpr const char* SELECT_ISSUE = "SELECT subject, state, total_spent_time, total_applied_to_redmine_time"
+	" FROM issues WHERE id = %1";
+	QSqlQuery query;
+	query.exec(QString(SELECT_ISSUE).arg(id));
+
+	if (!query.next())
+		return Issue();
+
+	Issue iss;
+	iss.set_id(id);
+	iss.set_subject(query.value(0).toString());
+	iss.set_state(static_cast<Issue::State>(query.value(1).toInt()));
+	iss.set_total_spent_time(std::chrono::minutes{query.value(2).toInt()});
+	iss.set_total_applied_to_redmine_time(std::chrono::minutes{query.value(3).toInt()});
+
+	return iss;
+}
 
 QString DatabaseManager::get_last_error() const
 {

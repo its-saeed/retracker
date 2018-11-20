@@ -27,8 +27,10 @@ public:
 	QString get_subject() const;
 	void set_subject(const QString& value);
 
+	void set_total_spent_time(const std::chrono::minutes& min);
 	void add_duration(const std::chrono::minutes& min);
 	bool add_applied_duration(const std::chrono::minutes& min);
+	void set_total_applied_to_redmine_time(const std::chrono::minutes& min);
 
 	std::chrono::minutes total_duration() const;
 	std::chrono::minutes total_applied_duration() const;
@@ -39,6 +41,9 @@ public:
 	QString total_unapplied_duration_string() const;
 	static Issue::State state_from_string(const QString& state_string);
 	State get_state() const;
+	void set_state(State s);
+
+	bool operator==(const Issue& other) const;
 
 private:
 	Id id;

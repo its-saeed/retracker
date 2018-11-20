@@ -44,7 +44,6 @@ HEADERS += \
     Settings.h \
     DatabaseManager.h
 
-LIBS += -lQt5Sql
 unix {
     target.path = /usr/lib
     INSTALLS += target

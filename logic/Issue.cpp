@@ -34,6 +34,11 @@ void Issue::set_subject(const QString& value)
 	subject = value;
 }
 
+void Issue::set_total_spent_time(const std::chrono::minutes& min)
+{
+	manager.set_total_spent_time(min);
+}
+
 void Issue::add_duration(const std::chrono::minutes& min)
 {
 	manager.add_duration(min);
@@ -42,6 +47,11 @@ void Issue::add_duration(const std::chrono::minutes& min)
 bool Issue::add_applied_duration(const std::chrono::minutes& min)
 {
 	return manager.add_applied_duration(min);
+}
+
+void Issue::set_total_applied_to_redmine_time(const std::chrono::minutes& min)
+{
+	manager.set_total_applied_to_redmine_time(min);
 }
 
 std::chrono::minutes Issue::total_duration() const
@@ -94,4 +104,18 @@ Issue::State Issue::state_from_string(const QString& state_string)
 Issue::State Issue::get_state() const
 {
 	return state;
+}
+
+void Issue::set_state(Issue::State s)
+{
+	state = s;
+}
+
+bool Issue::operator==(const Issue& other) const
+{
+	return (other.get_id() == get_id()
+			&& other.get_subject() == get_subject()
+			&& other.get_state() == get_state()
+			&& other.total_applied_duration() == total_applied_duration()
+			&& other.total_duration() == total_duration());
 }

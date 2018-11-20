@@ -20,6 +20,7 @@ public:
 	bool update_issue(const Issue& issue);
 	bool remove_issue(const Issue& issue);
 	IssueMap all_issues();
+	Issue get_issue_by_id(Issue::Id id);
 
 private:
 	static constexpr const char* DB_NAME = "retracker";

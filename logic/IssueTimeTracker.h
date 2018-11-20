@@ -9,10 +9,12 @@ class IssueTimeManager
 public:
 	IssueTimeManager();
 	void add_duration(const std::chrono::minutes& min);
+	void set_total_spent_time(const std::chrono::minutes& min);
 	std::chrono::minutes get_total_duration() const;
 	QString total_duration_string() const;
 
 	bool add_applied_duration(const std::chrono::minutes& min);
+	void set_total_applied_to_redmine_time(const std::chrono::minutes& min);
 	std::chrono::minutes get_total_applied_duration() const;
 	std::chrono::minutes get_total_unapplied_duration() const;
 	QString total_applied_duration_string() const;
