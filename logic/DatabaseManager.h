@@ -18,7 +18,7 @@ public:
 
 	bool add_issue(const Issue& issue);
 	bool update_issue(const Issue& issue);
-	bool remove_issue(const Issue& issue);
+	bool remove_issue(Issue::Id id);
 	IssueMap all_issues();
 	Issue get_issue_by_id(Issue::Id id);
 

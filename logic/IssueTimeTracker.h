@@ -8,6 +8,7 @@ class IssueTimeManager
 {
 public:
 	IssueTimeManager();
+	IssueTimeManager(const IssueTimeManager&) = default;
 	void add_duration(const std::chrono::minutes& min);
 	void set_total_spent_time(const std::chrono::minutes& min);
 	std::chrono::minutes get_total_duration() const;

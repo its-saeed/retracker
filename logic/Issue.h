@@ -21,6 +21,7 @@ public:
 
 	Issue();
 	Issue(Id id, const QString& subject, State state);
+	Issue(const Issue&) = default;
 	quint32 get_id() const;
 	void set_id(const quint32& value);
 
