@@ -12,11 +12,11 @@ public:
 	typedef uint32_t Id;
 	enum State
 	{
-		NEW,
+		NEW = 0,
 		DOING,
 		RETURNED,
 		QUALITY_CHECK,
-		UNKNOWN
+		UNKNOWN = -1
 	};
 
 	Issue();

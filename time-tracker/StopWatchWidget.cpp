@@ -10,7 +10,7 @@ ui(new Ui::StopWatchWidget)
 {
 	ui->setupUi(this);
 	issue_timer.setInterval(1000);
-	connect(&issue_timer, &QTimer::timeout, this, &StopWatchWidget::on_issue_timer_timed_out);
+	connect(&issue_timer, &QTimer::timeout, this, &StopWatchWidget::on_issue_timer_timeout);
 }
 
 StopWatchWidget::~StopWatchWidget()
@@ -104,7 +104,7 @@ void StopWatchWidget::on_btn_pause_clicked()
 	emit paused();
 }
 
-void StopWatchWidget::on_issue_timer_timed_out()
+void StopWatchWidget::on_issue_timer_timeout()
 {
 	stop_watch.tick();
 	ui->lbl_current_issue_timer->setText(QString::fromStdString(this->stop_watch.to_string()));

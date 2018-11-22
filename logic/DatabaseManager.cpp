@@ -40,7 +40,7 @@ bool DatabaseManager::create_database()
 
 bool DatabaseManager::create_tables()
 {
-	const QString issues_table_query("CREATE TABLE issues ("
+	const QString issues_table_query("CREATE TABLE IF NOT EXISTS issues ("
 														  "id	INTEGER NOT NULL UNIQUE,"
 														  "subject	TEXT NOT NULL,"
 														  "state INTEGER,"
@@ -92,6 +92,30 @@ bool DatabaseManager::update_issue(const Issue& issue)
 			.arg(issue.get_id());
 
 	return execute_query(query_string);
+}
+
+bool DatabaseManager::update_issues(const IssueMap& issue_map)
+{
+	bool update = true;
+	for (const auto& i : issue_map)
+	{
+		const Issue& issue = i.second;
+		update = update && update_issue(issue);
+	}
+
+	return update;
+}
+
+bool DatabaseManager::add_issues(const IssueMap& issue_map)
+{
+	bool insert= true;
+	for (const auto& i : issue_map)
+	{
+		const Issue& issue = i.second;
+		insert = insert && add_issue(issue);
+	}
+
+	return insert;
 }
 
 bool DatabaseManager::remove_issue(Issue::Id id)

@@ -30,7 +30,9 @@ SOURCES += \
     UserPassDialog.cpp \
     TimePickerDialog.cpp \
     StopWatchWidget.cpp \
-    ApplyTimeToPaygirDialog.cpp
+    ApplyTimeToPaygirDialog.cpp \
+    TodaySummaryWidget.cpp \
+    IssueCategoryManager.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -38,14 +40,18 @@ HEADERS += \
     UserPassDialog.h \
     TimePickerDialog.h \
     StopWatchWidget.h \
-    ApplyTimeToPaygirDialog.h
+    ApplyTimeToPaygirDialog.h \
+    TodaySummaryWidget.h \
+    IssueCategoryManager.h
 
 FORMS += \
         MainWindow.ui \
     UserPassDialog.ui \
     TimePickerDialog.ui \
     StopWatchWidget.ui \
-    ApplyTimeToPaygirDialog.ui
+    ApplyTimeToPaygirDialog.ui \
+    TodaySummaryWidget.ui \
+    IssueCategoryManager.ui
 
 RESOURCES += \
     res.qrc

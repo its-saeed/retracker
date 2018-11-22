@@ -39,7 +39,7 @@ private slots:
 	void on_btn_start_clicked();
 	void on_btn_pause_clicked();
 	void on_btn_dismiss_clicked();
-	void on_issue_timer_timed_out();
+	void on_issue_timer_timeout();
 };
 
 #endif // STOPWATCHWIDGET_H

@@ -2,6 +2,15 @@
 
 #include <QFile>
 
+#include "ProccessRunner.h"
+
+IssueManager::IssueManager(QObject* parent)
+: QObject(parent)
+, selected_issue_id(INVALID_ISSUE_ID)		// Invalid issue id, i.e. no issue is selected at first
+{
+
+}
+
 bool IssueManager::issue_exists(Issue::Id id) const
 {
 	return issues.find(id) != issues.end();
@@ -15,9 +24,13 @@ bool IssueManager::add_issue(Issue::Id id, QString subject, Issue::State state)
 bool IssueManager::add_issue(const Issue& issue)
 {
 	if (issue_exists(issue.get_id()))
+	{
+		last_error = "Trying to add a issue which already exists";
 		return false;
+	}
 
 	issues[issue.get_id()] = issue;
+	emit issue_added(issue.get_id());
 	return true;
 }
 
@@ -59,30 +72,47 @@ std::chrono::minutes IssueManager::get_duration(Issue::Id id) const
 void IssueManager::add_duration(Issue::Id id, const std::chrono::minutes& mins)
 {
 	get_issue_by_id(id).add_duration(mins);
+	issue_updated(id);
+}
+
+void IssueManager::add_timeslice_for_selected_issue(const std::chrono::minutes& mins)
+{
+	if (selected_issue_id == INVALID_ISSUE_ID)
+		return;
+
+	add_duration(selected_issue_id, mins);
 }
 
 bool IssueManager::add_applied_duration(Issue::Id id, const std::chrono::minutes& mins)
 {
-	return get_issue_by_id(id).add_applied_duration(mins);
+	bool added = get_issue_by_id(id).add_applied_duration(mins);
+
+	if (added)
+		issue_updated(id);
+
+	return added;
 }
 
 bool IssueManager::load_from_file(const QString& path)
 {
-	constexpr size_t SECTION_COUNT = 3;
+	constexpr int SECTION_COUNT = 3;
 	constexpr size_t ID_INDEX = 0;
 	constexpr size_t SUBJECT_INDEX = 1;
 	constexpr size_t STATUS_INDEX = 2;
 
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		last_error = "Cant open " + path + file.errorString();
 		return false;
+	}
 
 	while (!file.atEnd())
 	{
 		QString line = file.readLine();
 		QStringList parts = line.split(",");
 		if (parts.size() < SECTION_COUNT)
-			return false;
+			continue;
 
 		Issue issue(parts.at(ID_INDEX).toInt(), parts.at(SUBJECT_INDEX), Issue::state_from_string(parts.at(STATUS_INDEX)));
 		add_issue(issue);
@@ -91,8 +121,58 @@ bool IssueManager::load_from_file(const QString& path)
 	return true;
 }
 
+void IssueManager::set_issues(IssueMap&& issue_map)
+{
+	issues = issue_map;
+	emit issue_map_updated();
+}
+
 const IssueMap& IssueManager::get_issues() const
 {
 	return issues;
 }
 
+const QString&IssueManager::get_last_error() const
+{
+	return last_error;
+}
+
+void IssueManager::set_selected_issue_id(Issue::Id id)
+{
+	selected_issue_id = id;
+}
+
+const Issue& IssueManager::get_selected_issue() const
+{
+	static Issue issue;
+	if (selected_issue_id == INVALID_ISSUE_ID)
+		return issue;
+
+	return get_issue_by_id(selected_issue_id);
+}
+
+bool IssueManager::load_issue_from_peygir(int issue_id, const QString& username, const QString& pass)
+{
+	ProccessRunner process("scripts/find_issue.py", QStringList() << username << pass << QString::number(issue_id));
+	process.start_and_wait();
+
+	// TOOD: create a logger
+	//ui->pte_logs->appendPlainText(process.readAllStandardError());
+
+	if (!load_from_file(".issues.txt"))
+		return false;
+
+	return true;
+}
+
+bool IssueManager::load_issues_from_peygir(const QString& username, const QString& pass)
+{
+	ProccessRunner process("scripts/red.py", QStringList() << username << pass);
+	process.start_and_wait();
+	// TODO, create a logger
+	//ui->pte_logs->appendPlainText(process.readAllStandardError());
+	if (!load_from_file("scripts/.issues.txt"))
+		return false;
+
+	return true;
+}

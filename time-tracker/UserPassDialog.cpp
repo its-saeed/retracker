@@ -34,3 +34,21 @@ void UserPassDialog::on_btn_ok_clicked()
 	Settings::instance().set_remember_userpass(ui->chb_remember->isChecked());
 	accept();
 }
+
+Credential UserPassDialog::get_credential()
+{
+	QString username = Settings::instance().get_username();
+	QString password = Settings::instance().get_password();
+
+	if (username.isEmpty() || password.isEmpty())
+	{
+		UserPassDialog dlg;
+		if (dlg.exec() != QDialog::Rejected)
+		{
+			username = dlg.get_user_name();
+			password = dlg.get_password();
+		}
+	}
+
+	return {username, password};
+}

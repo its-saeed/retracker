@@ -31,7 +31,9 @@ SOURCES += \
     IssueTimeTracker.cpp \
     IssueManager.cpp \
     Settings.cpp \
-    DatabaseManager.cpp
+    DatabaseManager.cpp \
+    ProccessRunner.cpp \
+    OnDestructionRunner.cpp
 
 HEADERS += \
         Logic.h \
@@ -42,7 +44,9 @@ HEADERS += \
     IssueTimeTracker.h \
     IssueManager.h \
     Settings.h \
-    DatabaseManager.h
+    DatabaseManager.h \
+    ProccessRunner.h \
+    OnDestructionRunner.h
 
 unix {
     target.path = /usr/lib
