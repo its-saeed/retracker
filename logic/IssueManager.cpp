@@ -1,6 +1,7 @@
 #include "IssueManager.h"
 
 #include <QFile>
+#include <QDebug>
 
 #include "ProccessRunner.h"
 #include "DatabaseManager.h"
@@ -14,6 +15,8 @@ IssueManager::IssueManager(QObject* parent)
 
 bool IssueManager::issue_exists(Issue::Id id) const
 {
+	for (const auto& i : issues)
+		qDebug() << "S: " << id << i.first << i.second.get_subject();
 	return issues.find(id) != issues.end();
 }
 

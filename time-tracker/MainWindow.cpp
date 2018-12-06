@@ -30,8 +30,10 @@ ui(new Ui::MainWindow)
 	connect(ui->wdg_stop_watch, &StopWatchWidget::dismissed, ui->wdg_today_summary, &TodaySummaryWidget::update);
 	connect(&issue_manager, &IssueManager::issue_added, this, &MainWindow::on_issue_added);
 	connect(&issue_manager, &IssueManager::issue_map_updated, ui->wdg_issue_categories, &IssueCategoryManager::update_issue_tables);
+	connect(&issue_manager, &IssueManager::issue_updated, [this](){this->ui->wdg_today_summary->update();});
 
 	ui->wdg_issue_categories->set_issue_manager(&issue_manager);
+	ui->wdg_today_summary->set_issue_manager(&issue_manager);
 	open_database();
 }
 
@@ -161,6 +163,7 @@ void MainWindow::on_btn_add_issue_clicked()
 void MainWindow::on_issue_added(Issue::Id id)
 {
 	DatabaseManager::instance().add_issue(issue_manager.get_issue_by_id(id));
+	ui->wdg_issue_categories->add_issue(id);
 }
 
 void MainWindow::on_issue_edit_triggered(Issue::Id id)

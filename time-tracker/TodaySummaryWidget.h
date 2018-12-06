@@ -19,10 +19,7 @@ public:
 	explicit TodaySummaryWidget(QWidget *parent = nullptr);
 	~TodaySummaryWidget();
 	void change_today_start_to(const QDateTime& today);
-	void set_issue_manager(const IssueManager* issue_manager)
-	{
-		this->issue_manager = issue_manager;
-	}
+	void set_issue_manager(const IssueManager* issue_manager);
 
 public slots:
 	void update();

@@ -59,6 +59,7 @@ void IssueTableWidget::update_issue(const Issue& issue)
 
 void IssueTableWidget::item_clicked(int row, int)
 {
+	qDebug() << item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
 	Issue::Id issue_id = item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
 	emit issue_selected(issue_id);
 }

@@ -8,6 +8,7 @@
 TodaySummaryWidget::TodaySummaryWidget(QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::TodaySummaryWidget)
+  , issue_manager(nullptr)
 {
 	ui->setupUi(this);
 	update_today_start();
@@ -18,7 +19,6 @@ TodaySummaryWidget::TodaySummaryWidget(QWidget *parent) :
 		this->update();
 	});
 	update_today_duration_timer.start();
-
 }
 
 TodaySummaryWidget::~TodaySummaryWidget()
@@ -28,6 +28,9 @@ TodaySummaryWidget::~TodaySummaryWidget()
 
 void TodaySummaryWidget::update()
 {
+	if (!issue_manager)
+		return;
+
 	set_today_start_time(today_stats.day_start_string());
 	set_today_work_durations(today_stats.today_duration_string(QTime::currentTime()),
 							 QString::fromStdString(commons::to_string(issue_manager->get_total_useful_durations(QDate::currentDate()))),
@@ -63,6 +66,12 @@ void TodaySummaryWidget::change_today_start_to(const QDateTime& today)
 {
 	Settings::instance().save_today(today);
 	today_stats.set_day_start(today.time());
+}
+
+void TodaySummaryWidget::set_issue_manager(const IssueManager* issue_manager)
+{
+	this->issue_manager = issue_manager;
+	update();
 }
 
 void TodaySummaryWidget::update_today_start()

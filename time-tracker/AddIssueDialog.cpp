@@ -1,8 +1,7 @@
 #include "AddIssueDialog.h"
 #include "ui_AddIssueDialog.h"
 #include "DatabaseManager.h"
-
-#include <QRandomGenerator>
+#include "Settings.h"
 
 AddIssueDialog::AddIssueDialog(QWidget *parent) :
 	QDialog(parent),
@@ -29,11 +28,9 @@ bool AddIssueDialog::create_new_issue() const
 
 int AddIssueDialog::issue_id() const
 {
-	QRandomGenerator gen(QTime::currentTime().second());
-
 	if (load_from_redmine())
 		return ui->led_issue_id->text().toInt();
-	return 1000000 + gen.generate();
+	return Settings::instance().get_next_id();
 }
 
 QString AddIssueDialog::get_subject() const

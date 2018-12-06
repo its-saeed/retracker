@@ -47,6 +47,13 @@ QDateTime Settings::get_today() const
 	return value(TODAY_KEY, QDateTime()).toDateTime();
 }
 
+int Settings::get_next_id()
+{
+	int id = value(ID_KEY, 1000000).toInt();
+	setValue(ID_KEY, id + 1);
+	return id;
+}
+
 Settings& Settings::instance()
 {
 	static Settings settings;

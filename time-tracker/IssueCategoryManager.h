@@ -25,6 +25,7 @@ public:
 	void focus();
 public slots:
 	void update_issue_tables();
+	void add_issue(Issue::Id id);
 
 private slots:
 	void on_led_filter_returnPressed();

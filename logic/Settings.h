@@ -20,6 +20,8 @@ public:
 	void save_today(const QDateTime& today);
 	QDateTime get_today() const;
 
+	int get_next_id();
+
 private:
 	Settings();
 	static constexpr const char* ORGANIATION_NAME = "Mahsan";
@@ -33,6 +35,8 @@ private:
 	// Date and time keys
 	static constexpr const char* TODAY_KEY = "datetime/today";
 
+	// ID key
+	static constexpr const char* ID_KEY = "id/id";
 };
 
 #endif // SETTINGS_H

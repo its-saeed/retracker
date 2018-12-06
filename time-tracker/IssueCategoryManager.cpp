@@ -143,6 +143,18 @@ void IssueCategoryManager::update_issue_tables()
 	}
 }
 
+void IssueCategoryManager::add_issue(Issue::Id id)
+{
+	if (!issue_manager->issue_exists(id))
+		return;
+
+	const Issue& issue = issue_manager->get_issue_by_id(id);
+	if (category_to_table_map.find(issue.get_state()) == category_to_table_map.end())
+		return;
+
+	category_to_table_map[issue.get_state()]->add_issue(issue);
+}
+
 void IssueCategoryManager::focus()
 {
 	ui->led_filter->setFocus();
