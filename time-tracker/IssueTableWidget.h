@@ -20,8 +20,10 @@ public:
 
 private slots:
 	void item_clicked(int row, int col);
+	void on_item_double_clicked(int row, int col);
 signals:
 	void issue_selected(Issue::Id id);
+	void issue_double_clicked(Issue::Id id);
 private:
 	void set_color(QTableWidgetItem* item, int row);
 	QMap<Issue::Id, int> issue_id_to_table_row_map;

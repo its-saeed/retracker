@@ -28,6 +28,7 @@ private slots:
 	void on_btn_apply_times_clicked();
 	void on_btn_add_issue_clicked();
 	void on_issue_added(Issue::Id id);
+	void on_issue_edit_triggered(Issue::Id id);
 
 protected:
 	void keyPressEvent(QKeyEvent *event) override;

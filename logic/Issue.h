@@ -2,9 +2,44 @@
 #define ISSUE_H
 
 #include <chrono>
-#include <QString>
 #include <map>
-#include "IssueTimeTracker.h"
+
+#include <QString>
+#include <QDateTime>
+
+struct Timeslice
+{
+	int id;
+	QDateTime start;
+	QDateTime end;
+	bool applied_to_redmine;
+
+	std::chrono::seconds get_duration() const
+	{
+		return std::chrono::seconds{start.secsTo(end)};
+	}
+
+	bool operator==(const Timeslice& other) const
+	{
+		return id == other.id && start == other.start && end == other.end && applied_to_redmine == other.applied_to_redmine;
+	}
+};
+
+typedef std::map<int, Timeslice> TimesliceVector;		// ID -> Timeslice
+
+class TimesliceManager
+{
+public:
+	bool add_timeslice(const Timeslice& timeslice);
+	bool update_timeslice(const Timeslice& timeslice);
+	std::chrono::seconds get_duration(const QDate& date) const;
+	std::chrono::seconds get_duration(const QDate& date, bool applied) const;
+	std::chrono::seconds get_total_duration() const;
+	std::chrono::seconds get_total_duration(bool applied) const;
+	TimesliceVector get_timeslices() const;
+private:
+	TimesliceVector timeslices;
+};
 
 class Issue
 {
@@ -28,21 +63,23 @@ public:
 	QString get_subject() const;
 	void set_subject(const QString& value);
 
-	void set_total_spent_time(const std::chrono::minutes& min);
-	void add_duration(const std::chrono::minutes& min);
-	bool add_applied_duration(const std::chrono::minutes& min);
-	void set_total_applied_to_redmine_time(const std::chrono::minutes& min);
-
-	std::chrono::minutes total_duration() const;
-	std::chrono::minutes total_applied_duration() const;
-	std::chrono::minutes total_unapplied_duration() const;
-
-	QString total_duration_string() const;
-	QString total_applied_duration_string() const;
-	QString total_unapplied_duration_string() const;
 	static Issue::State state_from_string(const QString& state_string);
 	State get_state() const;
 	void set_state(State s);
+
+	bool add_timeslice(const Timeslice& timeslice);
+	bool update_timeslice(const Timeslice& ts);
+	std::chrono::seconds get_duration(const QDate& date) const;
+	std::chrono::seconds get_duration(const QDate& date, bool applied) const;
+	std::chrono::seconds get_total_duration() const;
+	std::chrono::seconds get_total_duration(bool applied) const;
+
+	QString get_duration_string(const QDate& date) const;
+	QString get_duration_string(const QDate& date, bool applied) const;
+	QString get_total_duration_string() const;
+	QString get_total_duration_string(bool applied) const;
+
+	TimesliceVector get_timeslices() const;
 
 	bool operator==(const Issue& other) const;
 
@@ -50,7 +87,7 @@ private:
 	Id id;
 	QString subject;
 	State state;
-	IssueTimeManager manager;
+	TimesliceManager timeslice_manager;
 };
 
 typedef std::map<Issue::Id, Issue> IssueMap;

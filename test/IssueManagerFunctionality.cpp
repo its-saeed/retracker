@@ -33,8 +33,10 @@ TEST(IssueManagerFunctionality, issue_manager_total_time_is_equal_to_sum_of_all_
 	IssueManager manager;
 	EXPECT_TRUE(manager.add_issue(1, "Salam", Issue::NEW));
 	EXPECT_TRUE(manager.add_issue(2, "Salam", Issue::NEW));
-	manager.add_duration(1, std::chrono::minutes(10));
-	manager.add_duration(2, std::chrono::minutes(15));
+	
+	QDateTime d = QDateTime::currentDateTime();
+	manager.add_timeslice(1, {1, d, d.addSecs(10 * 60), false});
+	manager.add_timeslice(2, {2, d, d.addSecs(15 * 60), false});
 	EXPECT_EQ(manager.get_total_useful_durations(), std::chrono::minutes(25));
 }
 
@@ -43,9 +45,10 @@ TEST(IssueManagerFunctionality, testing_getting_useful_time_by_issue_id)
 	IssueManager manager;
 	EXPECT_TRUE(manager.add_issue(1, "Salam", Issue::NEW));
 	EXPECT_TRUE(manager.add_issue(2, "Salam", Issue::NEW));
-	manager.add_duration(1, std::chrono::minutes(10));
-	manager.add_duration(2, std::chrono::minutes(15));
-	EXPECT_EQ(manager.get_duration(1), std::chrono::minutes(10));
+	QDateTime d = QDateTime::currentDateTime();
+	manager.add_timeslice(1, {1, d, d.addSecs(10 * 60), false});
+	manager.add_timeslice(2, {2, d, d.addSecs(15 * 60), false});
+	EXPECT_EQ(manager.get_total_useful_durations(1), std::chrono::minutes(10));
 }
 
 TEST(IssueFunctionality, testing_state_string_to_enum)

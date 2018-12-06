@@ -2,6 +2,7 @@
 #include <chrono>
 #include <QTime>
 #include "commons.h"
+#include "OnDestructionRunner.h"
 
 using namespace testing;
 
@@ -87,4 +88,14 @@ TEST(CommonsFunctionality, invalid_delimiter_should_return_zero)
 TEST(CommonsFunctionality, invalid_time_should_return_zero)
 {
 	EXPECT_NEAR(commons::time_to_double("3:70"), 0, 0.001);
+}
+
+TEST(OnDestructionFunctionality, on_destruction_of_object_it_should_do_what_is_expected)
+{
+	int a = 10;
+	{
+		OnDestructionRunner dest([&a](){++a;});
+	}
+
+	EXPECT_EQ(a, 11);
 }

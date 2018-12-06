@@ -32,7 +32,9 @@ SOURCES += \
     StopWatchWidget.cpp \
     ApplyTimeToPaygirDialog.cpp \
     TodaySummaryWidget.cpp \
-    IssueCategoryManager.cpp
+    IssueCategoryManager.cpp \
+    TimesliceEditorDialog.cpp \
+    AddIssueDialog.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -42,7 +44,9 @@ HEADERS += \
     StopWatchWidget.h \
     ApplyTimeToPaygirDialog.h \
     TodaySummaryWidget.h \
-    IssueCategoryManager.h
+    IssueCategoryManager.h \
+    TimesliceEditorDialog.h \
+    AddIssueDialog.h
 
 FORMS += \
         MainWindow.ui \
@@ -51,7 +55,9 @@ FORMS += \
     StopWatchWidget.ui \
     ApplyTimeToPaygirDialog.ui \
     TodaySummaryWidget.ui \
-    IssueCategoryManager.ui
+    IssueCategoryManager.ui \
+    TimesliceEditorDialog.ui \
+    AddIssueDialog.ui
 
 RESOURCES += \
     res.qrc

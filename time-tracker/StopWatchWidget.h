@@ -3,7 +3,9 @@
 
 #include <QTimer>
 #include <QWidget>
+#include <QDateTime>
 #include <Timer.h>
+#include "Issue.h"
 
 namespace Ui {
 class StopWatchWidget;
@@ -19,6 +21,7 @@ public:
 
 	std::chrono::minutes get_minutes() const;
 	std::chrono::seconds get_seconds() const;
+	Timeslice get_timeslice() const;
 	void set_current_issue(const QString& issue_id, const QString& issue_subject);
 	bool is_active() const;
 
@@ -27,6 +30,7 @@ private:
 	QTimer issue_timer;
 	StopWatch stop_watch;
 	bool pause;
+	QDateTime start, end;
 
 signals:
 	void stopped();

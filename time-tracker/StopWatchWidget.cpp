@@ -28,6 +28,11 @@ std::chrono::seconds StopWatchWidget::get_seconds() const
 	return stop_watch.get_seconds();
 }
 
+Timeslice StopWatchWidget::get_timeslice() const
+{
+	return {1, start, end, false};
+}
+
 void StopWatchWidget::set_current_issue(const QString& issue_id, const QString& issue_subject)
 {
 	ui->lbl_current_issue_number->setText(QString("<a style=\"color: rgb(252, 175, 62);\" href=\"http://projects.mahsan.co/issues/%1\">#%1</a>").arg(issue_id));
@@ -55,6 +60,7 @@ void StopWatchWidget::on_btn_start_clicked()
 		stop_watch.reset();
 	}
 
+	start = QDateTime::currentDateTime();
 	pause = false;
 	issue_timer.start();
 	ui->btn_start->setEnabled(false);
@@ -72,6 +78,7 @@ void StopWatchWidget::on_btn_stop_clicked()
 	ui->btn_dismiss->setEnabled(false);
 	ui->btn_pause->setEnabled(false);
 	pause = false;
+	end = QDateTime::currentDateTime();
 	emit stopped();
 }
 

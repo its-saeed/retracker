@@ -26,7 +26,7 @@ void ApplyTimeToPaygirDialog::update_issues()
 	for (const auto& kv : issue_manager.get_issues())
 	{
 		const Issue& issue = kv.second;
-		if (issue.total_duration() == std::chrono::minutes(0))
+		if (issue.get_total_duration() == std::chrono::seconds(0))
 			continue;
 
 		add_issue_to_table(issue);
@@ -49,11 +49,11 @@ void ApplyTimeToPaygirDialog::add_issue_to_table(const Issue& issue)
 	ui->tblw_issues->setItem(row_count, ISSUE_SUBJECT_COLUMN, issue_subject_item);
 	set_color_for_item(issue_subject_item, row_count);
 
-	auto issue_total_time_item = new QTableWidgetItem(issue.total_unapplied_duration_string());
+	auto issue_total_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	ui->tblw_issues->setItem(row_count, ISSUE_TOTAL_TIME_COLUMN, issue_total_time_item);
 	set_color_for_item(issue_total_time_item, row_count);
 
-	auto issue_total_applied_time_item = new QTableWidgetItem(issue.total_unapplied_duration_string());
+	auto issue_total_applied_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	ui->tblw_issues->setItem(row_count, ISSUE_PERFECT_TIME_COLUMN, issue_total_applied_time_item);
 	set_color_for_item(issue_total_applied_time_item, row_count);
 

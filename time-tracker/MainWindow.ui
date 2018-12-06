@@ -36,244 +36,478 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QWidget" name="widget" native="true">
-      <property name="styleSheet">
-       <string notr="true">QWidget#widget{
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="styleSheet">
+           <string notr="true">QWidget#widget{
 background-color: rgb(46, 52, 54)
 }
 QLabel
 {
 color:rgb(255,255,255);
 }</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="Line" name="line_2">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(114, 159, 207);</string>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="lineWidth">
-          <number>2</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="StopWatchWidget" name="wdg_stop_watch" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="Line" name="line">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(114, 159, 207);</string>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>2</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_stats_2">
-           <property name="font">
-            <font>
-             <family>B Yekan</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="Line" name="line_2">
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(114, 159, 207);</string>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <property name="lineWidth">
+              <number>2</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="StopWatchWidget" name="wdg_stop_watch" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="Line" name="line">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="autoFillBackground">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(114, 159, 207);</string>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_stats_2">
+               <property name="font">
+                <font>
+                 <family>B Yekan</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(52, 101, 164);
 color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>درباره</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/timer.png</normaloff>:/ui/res/timer.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_add_issue">
-           <property name="font">
-            <font>
-             <family>B Yekan</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
+               </property>
+               <property name="text">
+                <string>درباره</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/ui/res/timer.png</normaloff>:/ui/res/timer.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_add_issue">
+               <property name="font">
+                <font>
+                 <family>B Yekan</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(52, 101, 164);
 color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>افزودن مسئله</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/document.png</normaloff>:/ui/res/document.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_update_issues">
-           <property name="font">
-            <font>
-             <family>B Yekan</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
+               </property>
+               <property name="text">
+                <string>افزودن مسئله</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/ui/res/document.png</normaloff>:/ui/res/document.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_update_issues">
+               <property name="font">
+                <font>
+                 <family>B Yekan</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(52, 101, 164);
 color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>به روز رسانی مسائل</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/download.png</normaloff>:/ui/res/download.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_apply_times">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="font">
-            <font>
-             <family>B Yekan</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::RightToLeft</enum>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(52, 101, 164);
+               </property>
+               <property name="text">
+                <string>به روز رسانی مسائل</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/ui/res/download.png</normaloff>:/ui/res/download.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_apply_times">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="font">
+                <font>
+                 <family>B Yekan</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(52, 101, 164);
 color: rgb(175, 241, 255);</string>
-           </property>
-           <property name="text">
-            <string>ارسال زمان به پیگیر</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/ui/res/upload.png</normaloff>:/ui/res/upload.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="IssueCategoryManager" name="wdg_issue_categories" native="true"/>
-    </item>
-    <item>
-     <widget class="TodaySummaryWidget" name="wdg_today_summary" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QWidget#widget_2{
+               </property>
+               <property name="text">
+                <string>ارسال زمان به پیگیر</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/ui/res/upload.png</normaloff>:/ui/res/upload.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="IssueCategoryManager" name="wdg_issue_categories" native="true"/>
+        </item>
+        <item>
+         <widget class="TodaySummaryWidget" name="wdg_today_summary" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QWidget#widget_2{
 background-color: rgb(46, 52, 54)
 }
 QLabel
 {
 color:rgb(255,255,255);
 }</string>
-      </property>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pge_login">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>355</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>409</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1" rowspan="2" colspan="2">
+         <widget class="QWidget" name="wdg_login" native="true">
+          <property name="font">
+           <font>
+            <family>B Yekan</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QWidget#wdg_login
+{
+background-color: rgb(46, 52, 54, 200);
+border-radius:3px;
+}
+QLabel,QCheckBox
+{
+color:rgb(255,255,255);
+}</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>B Yekan</family>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>نام کاربری</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLineEdit" name="lineEdit_2">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <family>B Yekan</family>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>کلمه عبور</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="font">
+                <font>
+                 <family>B Yekan</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>خروج</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/ui/res/stop3.png</normaloff>:/ui/res/stop3.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="font">
+                <font>
+                 <family>B Yekan</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>ورود</string>
+               </property>
+               <property name="icon">
+                <iconset resource="res.qrc">
+                 <normaloff>:/ui/res/heart.png</normaloff>:/ui/res/heart.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="autoDefault">
+                <bool>true</bool>
+               </property>
+               <property name="default">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="font">
+              <font>
+               <family>B Yekan</family>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>من را به خاطر بسپار</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>409</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="2">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>355</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -300,6 +534,17 @@ color:rgb(255,255,255);
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>btn_apply_times</tabstop>
+  <tabstop>btn_update_issues</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>btn_stats_2</tabstop>
+  <tabstop>btn_add_issue</tabstop>
+  <tabstop>checkBox</tabstop>
+ </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>

@@ -6,9 +6,11 @@ IssueTableWidget::IssueTableWidget(QWidget* parent)
 : QTableWidget(parent)
 {
 	setSelectionBehavior(QAbstractItemView::SelectRows);
-	connect(this, &IssueTableWidget::cellDoubleClicked, this, &IssueTableWidget::item_clicked);
+	connect(this, &IssueTableWidget::cellClicked, this, &IssueTableWidget::item_clicked);
+	connect(this, &IssueTableWidget::cellDoubleClicked, this, &IssueTableWidget::on_item_double_clicked);
 	auto header = horizontalHeader();
 	header->setSectionResizeMode(QHeaderView::ResizeToContents);
+	setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void IssueTableWidget::add_issue(const Issue& issue)
@@ -28,15 +30,15 @@ void IssueTableWidget::add_issue(const Issue& issue)
 	setItem(row_count, ISSUE_SUBJECT_COLUMN, issue_subject_item);
 	set_color(issue_subject_item, row_count);
 
-	auto issue_total_time_item = new QTableWidgetItem(issue.total_duration_string());
+	auto issue_total_time_item = new QTableWidgetItem(issue.get_total_duration_string());
 	setItem(row_count, ISSUE_TOTAL_TIME_COLUMN, issue_total_time_item);
 	set_color(issue_total_time_item, row_count);
 
-	auto issue_total_applied_time_item = new QTableWidgetItem(issue.total_applied_duration_string());
+	auto issue_total_applied_time_item = new QTableWidgetItem(issue.get_total_duration_string(true));
 	setItem(row_count, ISSUE_TOTAL_APPLIED_TIME_COLUMN, issue_total_applied_time_item);
 	set_color(issue_total_applied_time_item, row_count);
 
-	auto issue_total_unapplied_time_item = new QTableWidgetItem(issue.total_unapplied_duration_string());
+	auto issue_total_unapplied_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	setItem(row_count, ISSUE_TOTAL_UNAPPLIED_TIME_COLUMN, issue_total_unapplied_time_item);
 	set_color(issue_total_unapplied_time_item, row_count);
 
@@ -50,15 +52,21 @@ void IssueTableWidget::update_issue(const Issue& issue)
 
 	int row_count = issue_id_to_table_row_map.value(issue.get_id());
 	item(row_count, ISSUE_SUBJECT_COLUMN)->setText(issue.get_subject());
-	item(row_count, ISSUE_TOTAL_TIME_COLUMN)->setText(issue.total_duration_string());
-	item(row_count, ISSUE_TOTAL_APPLIED_TIME_COLUMN)->setText(issue.total_applied_duration_string());
-	item(row_count, ISSUE_TOTAL_UNAPPLIED_TIME_COLUMN)->setText(issue.total_unapplied_duration_string());
+	item(row_count, ISSUE_TOTAL_TIME_COLUMN)->setText(issue.get_total_duration_string());
+	item(row_count, ISSUE_TOTAL_APPLIED_TIME_COLUMN)->setText(issue.get_total_duration_string(true));
+	item(row_count, ISSUE_TOTAL_UNAPPLIED_TIME_COLUMN)->setText(issue.get_total_duration_string(false));
 }
 
 void IssueTableWidget::item_clicked(int row, int)
 {
 	Issue::Id issue_id = item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
 	emit issue_selected(issue_id);
+}
+
+void IssueTableWidget::on_item_double_clicked(int row, int col)
+{
+	Issue::Id issue_id = item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
+	emit issue_double_clicked(issue_id);
 }
 
 void IssueTableWidget::set_color(QTableWidgetItem* item, int row)

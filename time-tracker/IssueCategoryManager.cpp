@@ -1,7 +1,12 @@
 #include "IssueCategoryManager.h"
 #include "ui_IssueCategoryManager.h"
 
+#include "IssueTableWidget.h"
 #include "UserPassDialog.h"
+#include "DatabaseManager.h"
+
+#include <QMessageBox>
+#include <QMessageBox>
 
 IssueCategoryManager::IssueCategoryManager(QWidget *parent) :
 	QWidget(parent),
@@ -9,10 +14,6 @@ IssueCategoryManager::IssueCategoryManager(QWidget *parent) :
   , issue_manager(nullptr)
 {
 	ui->setupUi(this);
-	add_new_category(Issue::State::NEW, ui->tblw_new_issues);
-	add_new_category(Issue::State::DOING, ui->tblw_doing_issues);
-	add_new_category(Issue::State::RETURNED, ui->tblw_returned_issues);
-	add_new_category(Issue::State::QUALITY_CHECK, ui->tblw_returned_issues);
 }
 
 IssueCategoryManager::~IssueCategoryManager()
@@ -32,18 +33,54 @@ bool IssueCategoryManager::filter_issues(const QString& filter)
 		return false;
 
 	for (auto & i : category_to_table_map)
-	{
 		if (find_issue_in(i.first, i.second, filter))
 			return true;
-	}
 
 	return false;
 }
 
-void IssueCategoryManager::add_new_category(int catid, IssueTableWidget* table)
+void IssueCategoryManager::add_new_category_to_tab_widget(int catid, const QString& caption)
 {
-	category_to_table_map.insert(std::make_pair(catid, table));
-	connect(table, &IssueTableWidget::issue_selected, this, &IssueCategoryManager::issue_selected);
+	// Create Table
+	IssueTableWidget* tblw_new_issues = new IssueTableWidget;
+	if (tblw_new_issues->columnCount() < 5)
+		tblw_new_issues->setColumnCount(5);
+	QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem(tr("شماره"));
+	tblw_new_issues->setHorizontalHeaderItem(0, __qtablewidgetitem);
+	QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem(tr("موضوع"));
+	tblw_new_issues->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+	QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem(tr("زمان کل"));
+	tblw_new_issues->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+	QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem(tr("زمان زده شده در پیگیر"));
+	tblw_new_issues->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+	QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem(tr("زمان زده نشده در پیگیر"));
+	tblw_new_issues->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+	tblw_new_issues->setObjectName(QStringLiteral("tblw_new_issues"));
+
+	ui->tabw_issue_tables->insertTab(catid, tblw_new_issues, caption);
+	ui->tabw_issue_tables->setTabIcon(catid, QIcon(":/ui/res/cat.png"));
+	category_to_table_map.insert(std::make_pair(catid, tblw_new_issues));
+	connect(tblw_new_issues, &IssueTableWidget::issue_selected, this, &IssueCategoryManager::issue_selected);
+	connect(tblw_new_issues, &IssueTableWidget::issue_double_clicked, this, &IssueCategoryManager::issue_edit_requested);
+}
+
+void IssueCategoryManager::add_new_category(int catid, const QString& caption)
+{
+	if (!DatabaseManager::instance().add_category(catid, caption))
+	{
+		QMessageBox::warning(this, "New Category", "Can't add new category");
+		return;
+	}
+
+	add_new_category_to_tab_widget(catid, caption);
+}
+
+void IssueCategoryManager::load_categories()
+{
+	auto cats = DatabaseManager::instance().all_categories();
+
+	for (auto& cat : cats)
+		add_new_category_to_tab_widget(cat.first, cat.second);
 }
 
 bool IssueCategoryManager::find_issue_in(int table_index, IssueTableWidget* table, const QString& filter)
@@ -110,4 +147,30 @@ void IssueCategoryManager::focus()
 {
 	ui->led_filter->setFocus();
 	ui->led_filter->selectAll();
+}
+
+void IssueCategoryManager::on_btn_new_category_clicked()
+{
+	if (ui->led_new_category->text().isEmpty())
+		return;
+
+	add_new_category(ui->tabw_issue_tables->count(), ui->led_new_category->text());
+}
+
+void IssueCategoryManager::on_tabw_issue_tables_tabCloseRequested(int index)
+{
+	if (index <= 3)
+	{
+		QMessageBox::warning(this, "Category close", "Primary categories couldn't be closed.");
+		return;
+	}
+
+	if (!DatabaseManager::instance().remove_category(index))
+	{
+		QMessageBox::warning(this, "Category close", "Removing failed");
+		return;
+	}
+
+	delete ui->tabw_issue_tables->widget(index);
+	ui->tabw_issue_tables->removeTab(index);
 }

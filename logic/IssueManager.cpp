@@ -3,6 +3,7 @@
 #include <QFile>
 
 #include "ProccessRunner.h"
+#include "DatabaseManager.h"
 
 IssueManager::IssueManager(QObject* parent)
 : QObject(parent)
@@ -52,45 +53,59 @@ const Issue& IssueManager::get_issue_by_id(Issue::Id id) const
 	return issues.at(id);
 }
 
-std::chrono::minutes IssueManager::get_total_useful_durations() const
+std::chrono::seconds IssueManager::get_total_useful_durations() const
 {
-	std::chrono::minutes total_duration{};
+	std::chrono::seconds total_duration{};
 	for (const auto& i : issues)
 	{
 		const Issue& issue = i.second;
-		total_duration += issue.total_duration();
+		total_duration += issue.get_total_duration();
 	}
 
 	return total_duration;
 }
 
-std::chrono::minutes IssueManager::get_duration(Issue::Id id) const
+std::chrono::seconds IssueManager::get_total_useful_durations(Issue::Id id) const
 {
-	return get_issue_by_id(id).total_duration();
+	return get_issue_by_id(id).get_total_duration();
 }
 
-void IssueManager::add_duration(Issue::Id id, const std::chrono::minutes& mins)
+std::chrono::seconds IssueManager::get_duration(Issue::Id id, const QDate& date) const
 {
-	get_issue_by_id(id).add_duration(mins);
+	return get_issue_by_id(id).get_duration(date);
+}
+
+void IssueManager::add_timeslice(Issue::Id id, const Timeslice& timeslice)
+{
+	Timeslice ts = timeslice;
+	int tsid = DatabaseManager::instance().add_time_slice(selected_issue_id, timeslice);
+
+	if (tsid != -1)
+		ts.id = tsid;
+
+	get_issue_by_id(id).add_timeslice(ts);
 	issue_updated(id);
 }
 
-void IssueManager::add_timeslice_for_selected_issue(const std::chrono::minutes& mins)
+bool IssueManager::update_timeslice(Issue::Id id, const Timeslice& ts)
+{
+	if (!issue_exists(id))
+		return false;
+
+	if (!get_issue_by_id(id).update_timeslice(ts))
+		return false;
+
+	issue_updated(id);
+
+	return true;
+}
+
+void IssueManager::add_timeslice_for_selected_issue(const Timeslice& timeslice)
 {
 	if (selected_issue_id == INVALID_ISSUE_ID)
 		return;
 
-	add_duration(selected_issue_id, mins);
-}
-
-bool IssueManager::add_applied_duration(Issue::Id id, const std::chrono::minutes& mins)
-{
-	bool added = get_issue_by_id(id).add_applied_duration(mins);
-
-	if (added)
-		issue_updated(id);
-
-	return added;
+	add_timeslice(selected_issue_id, timeslice);
 }
 
 bool IssueManager::load_from_file(const QString& path)
@@ -128,6 +143,11 @@ void IssueManager::set_issues(IssueMap&& issue_map)
 }
 
 const IssueMap& IssueManager::get_issues() const
+{
+	return issues;
+}
+
+IssueMap& IssueManager::get_issues()
 {
 	return issues;
 }

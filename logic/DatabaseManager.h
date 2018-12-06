@@ -1,6 +1,7 @@
 #ifndef DATABASEMANAGER_H
 #define DATABASEMANAGER_H
 
+#include <QDateTime>
 #include <QString>
 #include <QtSql/QSqlDatabase>
 
@@ -16,13 +17,20 @@ public:
 	QString get_last_error() const;
 	bool is_connected() const;
 
-	bool add_issue(const Issue& issue);
+	bool add_issue(Issue& issue);
+	int add_time_slice(Issue::Id id, const Timeslice& timeslice);
+	bool update_timeslice(const Timeslice& ts);
 	bool update_issue(const Issue& issue);
 	bool update_issues(const IssueMap& issue_map);
-	bool add_issues(const IssueMap& issue_map);
+	bool add_issues(IssueMap& issue_map);
 	bool remove_issue(Issue::Id id);
 	IssueMap all_issues();
 	Issue get_issue_by_id(Issue::Id id);
+	TimesliceVector get_issue_timeslices(Issue::Id id);
+
+	bool add_category(int id, const QString& cat_text);
+	std::map<int, QString> all_categories();
+	bool remove_category(int id);
 
 private:
 	static constexpr const char* DB_NAME = "retracker";

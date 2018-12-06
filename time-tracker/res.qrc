@@ -17,5 +17,7 @@
         <file>res/stop3.png</file>
         <file>res/timer.png</file>
         <file>res/pause.png</file>
+        <file>res/cat.png</file>
+        <file>res/heart.png</file>
     </qresource>
 </RCC>

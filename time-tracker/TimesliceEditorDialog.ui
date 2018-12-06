@@ -1,71 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>TimesliceEditorDialog</class>
- <widget name="TimesliceEditorDialog" class="QDialog">
+ <widget class="QDialog" name="TimesliceEditorDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>719</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Timeslice Editor</string>
   </property>
-  <widget name="buttonBox" class="QDialogButtonBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTableWidget" name="tblw_timeslices">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <column>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Start Date</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Start Time</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>End Date</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>End Time</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Applied to Redmine?</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Start Date:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateTimeEdit" name="dte_start">
+       <property name="displayFormat">
+        <string>M/d/yyyy h:mm:ss AP</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>End Date:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateTimeEdit" name="dte_end">
+       <property name="displayFormat">
+        <string>M/d/yyyy h:mm:ss AP</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Current Duration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbl_duration">
+       <property name="text">
+        <string>00:00</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Total Duration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbl_total_duration">
+       <property name="text">
+        <string>00:00</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_apply">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Apply</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>TimesliceEditorDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>TimesliceEditorDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

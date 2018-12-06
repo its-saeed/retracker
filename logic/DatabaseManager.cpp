@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QStringList>
 #include <QVariant>
+#include <QString>
 
 DatabaseManager::DatabaseManager()
 	: is_open(false)
@@ -44,15 +45,37 @@ bool DatabaseManager::create_tables()
 														  "id	INTEGER NOT NULL UNIQUE,"
 														  "subject	TEXT NOT NULL,"
 														  "state INTEGER,"
-														  "total_spent_time	INTEGER,"
-														  "total_applied_to_redmine_time	INTEGER,"
 														  "tags	TEXT,"
 														  "PRIMARY KEY(id)"
 													  ");");
 
+	const QString timeslice_table_query("CREATE TABLE IF NOT EXISTS timeslice ("
+										"id	INTEGER NOT NULL UNIQUE PRIMARY KEY,"
+										"issue_id	INTEGER NOT NULL,"
+										"start	TEXT NOT NULL,"
+										"end	INTEGER NOT NULL,"
+										"applied_to_redmine	INTEGER NOT NULL DEFAULT 0,"
+										"FOREIGN KEY(issue_id) REFERENCES issues(id) on delete cascade on update cascade);");
+
+	const QString category_table_query("CREATE TABLE IF NOT EXISTS categories ("
+									   "id	INTEGER NOT NULL UNIQUE,"
+									   "cat_text	TEXT NOT NULL,"
+									   "PRIMARY KEY(id)"
+									   ");");
 	// First create clients table
 	if (!execute_query(issues_table_query))
 		return false;
+
+	if (!execute_query(timeslice_table_query))
+		return false;
+
+	if (!execute_query(category_table_query))
+		return false;
+
+	add_category(Issue::State::NEW, "جدید");
+	add_category(Issue::State::DOING, "درحال انجام");
+	add_category(Issue::State::RETURNED, "بازخورد");
+	add_category(Issue::State::QUALITY_CHECK, "بررسی کیفیت");
 
 	return true;
 
@@ -67,15 +90,61 @@ bool DatabaseManager::drop_database()
 	return create_database();
 }
 
-bool DatabaseManager::add_issue(const Issue& issue)
+bool DatabaseManager::add_issue(Issue& issue)
 {
-	static constexpr const char* INSERT_TO_ISSUES_TABLE = "INSERT INTO issues values(%1, '%2', %3, %4, %5, '')";
+	static constexpr const char* INSERT_TO_ISSUES_TABLE = "INSERT INTO issues values(%1, '%2', %3, '')";
 	QString query_string = QString(INSERT_TO_ISSUES_TABLE)
 			.arg(issue.get_id())
 			.arg(issue.get_subject())
-			.arg(issue.get_state())
-			.arg(issue.total_duration().count())
-			.arg(issue.total_applied_duration().count());
+			.arg(issue.get_state());
+
+	bool insertion = execute_query(query_string);
+	if (!insertion)
+	{
+		last_error = QString("Issue with ID: %1 couldn't be added.").arg(issue.get_id());
+		return false;
+	}
+
+	for (auto& kv : issue.get_timeslices())
+	{
+		Timeslice& timeslice = kv.second;
+		int ts_id = add_time_slice(issue.get_id(), timeslice);
+		if (ts_id == -1)
+		{
+			last_error = QString("Issue time slice couldn't be added.");
+			return false;
+		}
+
+		timeslice.id = ts_id;
+	}
+
+	return true;
+}
+
+int DatabaseManager::add_time_slice(Issue::Id id, const Timeslice& timeslice)
+{
+	QString query_string = QString("INSERT INTO timeslice VALUES (NULL, %1, '%2', '%3', %4)")
+			.arg(id)
+			.arg(timeslice.start.toString())
+			.arg(timeslice.end.toString())
+			.arg(static_cast<int>(timeslice.applied_to_redmine));
+
+	QSqlQuery query;
+	if (!query.exec(query_string))
+		return -1;
+
+	return query.lastInsertId().toInt();
+}
+
+bool DatabaseManager::update_timeslice(const Timeslice& ts)
+{
+	static constexpr const char* UPDATE_ISSUE_QUERY_STRING = "UPDATE timeslice SET start = '%1', end = '%2', applied_to_redmine = %3 "
+			" WHERE id = %4";
+	QString query_string = QString(UPDATE_ISSUE_QUERY_STRING)
+			.arg(ts.start.toString())
+			.arg(ts.end.toString())
+			.arg(ts.applied_to_redmine)
+			.arg(ts.id);
 
 	return execute_query(query_string);
 }
@@ -83,11 +152,9 @@ bool DatabaseManager::add_issue(const Issue& issue)
 bool DatabaseManager::update_issue(const Issue& issue)
 {
 	static constexpr const char* UPDATE_ISSUE_QUERY_STRING = "UPDATE issues SET subject = '%1', "
-			"total_spent_time = %2, total_applied_to_redmine_time = %3, state = %4 WHERE id = %5";
+			" state = %2 WHERE id = %3";
 	QString query_string = QString(UPDATE_ISSUE_QUERY_STRING)
 			.arg(issue.get_subject())
-			.arg(issue.total_duration().count())
-			.arg(issue.total_applied_duration().count())
 			.arg(issue.get_state())
 			.arg(issue.get_id());
 
@@ -106,12 +173,12 @@ bool DatabaseManager::update_issues(const IssueMap& issue_map)
 	return update;
 }
 
-bool DatabaseManager::add_issues(const IssueMap& issue_map)
+bool DatabaseManager::add_issues(IssueMap& issue_map)
 {
 	bool insert= true;
-	for (const auto& i : issue_map)
+	for (auto& i : issue_map)
 	{
-		const Issue& issue = i.second;
+		Issue& issue = i.second;
 		insert = insert && add_issue(issue);
 	}
 
@@ -130,7 +197,7 @@ bool DatabaseManager::remove_issue(Issue::Id id)
 IssueMap DatabaseManager::all_issues()
 {
 	IssueMap map;
-	constexpr const char* SELECT_ISSUE = "SELECT id, subject, state, total_spent_time, total_applied_to_redmine_time FROM issues";
+	constexpr const char* SELECT_ISSUE = "SELECT id, subject, state FROM issues";
 	QSqlQuery query;
 	if (!query.exec(QString(SELECT_ISSUE)))
 		return map;
@@ -141,10 +208,10 @@ IssueMap DatabaseManager::all_issues()
 		iss.set_id(query.value(0).toInt());
 		iss.set_subject(query.value(1).toString());
 		iss.set_state(static_cast<Issue::State>(query.value(2).toInt()));
-		iss.set_total_spent_time(std::chrono::minutes{query.value(3).toInt()});
-		iss.set_total_applied_to_redmine_time(std::chrono::minutes{query.value(4).toInt()});
+		TimesliceVector timeslices = get_issue_timeslices(iss.get_id());
+		for (auto& ts : timeslices)
+			iss.add_timeslice(ts.second);
 		map[iss.get_id()] = iss;
-
 	}
 
 	return map;
@@ -152,7 +219,7 @@ IssueMap DatabaseManager::all_issues()
 
 Issue DatabaseManager::get_issue_by_id(Issue::Id id)
 {
-	constexpr const char* SELECT_ISSUE = "SELECT subject, state, total_spent_time, total_applied_to_redmine_time"
+	constexpr const char* SELECT_ISSUE = "SELECT subject, state"
 										 " FROM issues WHERE id = %1";
 	QSqlQuery query;
 	if (!query.exec(QString(SELECT_ISSUE).arg(id)))
@@ -165,10 +232,62 @@ Issue DatabaseManager::get_issue_by_id(Issue::Id id)
 	iss.set_id(id);
 	iss.set_subject(query.value(0).toString());
 	iss.set_state(static_cast<Issue::State>(query.value(1).toInt()));
-	iss.set_total_spent_time(std::chrono::minutes{query.value(2).toInt()});
-	iss.set_total_applied_to_redmine_time(std::chrono::minutes{query.value(3).toInt()});
+	TimesliceVector timeslices = get_issue_timeslices(iss.get_id());
+	for (auto& ts : timeslices)
+		iss.add_timeslice(ts.second);
 
 	return iss;
+}
+
+TimesliceVector DatabaseManager::get_issue_timeslices(Issue::Id id)
+{
+	constexpr const char* SELECT_TIMESLICE = "SELECT id, start, end, applied_to_redmine "
+										 " FROM timeslice WHERE issue_id = %1";
+	QSqlQuery query;
+	if (!query.exec(QString(SELECT_TIMESLICE).arg(id)))
+		return TimesliceVector();
+
+	TimesliceVector vec;
+
+	while (query.next())
+	{
+		Timeslice ts;
+		ts.id = query.value(0).toInt();
+		ts.start = QDateTime::fromString(query.value(1).toString());
+		ts.end = QDateTime::fromString(query.value(2).toString());
+		ts.applied_to_redmine = query.value(3).toBool();
+		vec.insert(std::make_pair(ts.id, ts));
+	}
+
+	return vec;
+}
+
+bool DatabaseManager::add_category(int id, const QString& cat_text)
+{
+	QString insert_category("INSERT INTO categories VALUES(%1, '%2')");
+	insert_category = insert_category.arg(id).arg(cat_text);
+
+	return execute_query(insert_category);
+}
+
+std::map<int, QString> DatabaseManager::all_categories()
+{
+	std::map<int, QString> categories;
+	QSqlQuery query;
+	if (!query.exec(QString("SELECT id, cat_text FROM categories")))
+		return categories;
+
+	while (query.next())
+		categories.insert(std::make_pair(query.value(0).toInt(), query.value(1).toString()));
+
+	return categories;
+
+}
+
+bool DatabaseManager::remove_category(int id)
+{
+	QString query_string = QString("DELETE FROM categories WHERE id = %1").arg(id);
+	return execute_query(query_string);
 }
 
 QString DatabaseManager::get_last_error() const
