@@ -75,16 +75,20 @@ std::chrono::seconds IssueManager::get_duration(Issue::Id id, const QDate& date)
 	return get_issue_by_id(id).get_duration(date);
 }
 
-void IssueManager::add_timeslice(Issue::Id id, const Timeslice& timeslice)
+int IssueManager::add_timeslice(Issue::Id id, const Timeslice& timeslice)
 {
 	Timeslice ts = timeslice;
 	int tsid = DatabaseManager::instance().add_time_slice(selected_issue_id, timeslice);
 
-	if (tsid != -1)
-		ts.id = tsid;
+	if (tsid == -1)
+		return -1;
+
+	ts.id = tsid;
 
 	get_issue_by_id(id).add_timeslice(ts);
 	issue_updated(id);
+
+	return tsid;
 }
 
 bool IssueManager::update_timeslice(Issue::Id id, const Timeslice& ts)
@@ -93,6 +97,19 @@ bool IssueManager::update_timeslice(Issue::Id id, const Timeslice& ts)
 		return false;
 
 	if (!get_issue_by_id(id).update_timeslice(ts))
+		return false;
+
+	issue_updated(id);
+
+	return true;
+}
+
+bool IssueManager::delete_timeslice(Issue::Id id, int timeslice_id)
+{
+	if (!issue_exists(id))
+		return false;
+
+	if (!get_issue_by_id(id).delete_timeslice(timeslice_id))
 		return false;
 
 	issue_updated(id);

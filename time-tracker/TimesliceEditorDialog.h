@@ -26,10 +26,16 @@ private slots:
 	void on_dte_start_dateTimeChanged(const QDateTime &dateTime);
 	void on_dte_end_dateTimeChanged(const QDateTime &dateTime);
 
+	void on_btn_delete_timeslice_clicked();
+
+	void on_btn_add_timeslice_clicked();
+
 private:
 	int get_current_timeslice_id() const;
 	bool get_current_timeslice_applied_to_redmine() const;
 	void update_duration_label(const QTime& start, const QTime& end);
+	void remove_row(int row);
+	void add_timeslice_to_table(const Timeslice& timeslice);
 	Ui::TimesliceEditorDialog *ui;
 	IssueManager* issue_manager;
 	Issue::Id current_issue_id;

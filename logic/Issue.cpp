@@ -72,6 +72,11 @@ bool Issue::update_timeslice(const Timeslice& ts)
 	return timeslice_manager.update_timeslice(ts);
 }
 
+bool Issue::delete_timeslice(int id)
+{
+	return timeslice_manager.delete_timeslice(id);
+}
+
 std::chrono::seconds Issue::get_duration(const QDate& date) const
 {
 	return timeslice_manager.get_duration(date);
@@ -137,6 +142,16 @@ bool TimesliceManager::update_timeslice(const Timeslice& timeslice)
 		return false;
 
 	timeslices[timeslice.id] = timeslice;
+
+	return true;
+}
+
+bool TimesliceManager::delete_timeslice(int id)
+{
+	if (timeslices.find(id) == timeslices.end())
+		return false;
+
+	timeslices.erase(id);
 
 	return true;
 }

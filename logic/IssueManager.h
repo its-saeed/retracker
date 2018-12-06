@@ -29,8 +29,9 @@ public:
 
 	/// Add duration for currently selected issue
 	void add_timeslice_for_selected_issue(const Timeslice& timeslice);
-	void add_timeslice(Issue::Id id, const Timeslice& timeslice);
+	int add_timeslice(Issue::Id id, const Timeslice& timeslice);
 	bool update_timeslice(Issue::Id id, const Timeslice& ts);
+	bool delete_timeslice(Issue::Id id, int timeslice_id);
 
 	const QString& get_last_error() const;
 

@@ -149,6 +149,14 @@ bool DatabaseManager::update_timeslice(const Timeslice& ts)
 	return execute_query(query_string);
 }
 
+bool DatabaseManager::remove_timeslice(int id)
+{
+	static constexpr const char* DELETE_FROM_ORDERS_TABLE = "DELETE FROM timeslice WHERE id=%1;";
+
+	QString query_string = QString(DELETE_FROM_ORDERS_TABLE).arg(id);
+	return execute_query(query_string);
+}
+
 bool DatabaseManager::update_issue(const Issue& issue)
 {
 	static constexpr const char* UPDATE_ISSUE_QUERY_STRING = "UPDATE issues SET subject = '%1', "

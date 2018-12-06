@@ -20,6 +20,7 @@ public:
 	bool add_issue(Issue& issue);
 	int add_time_slice(Issue::Id id, const Timeslice& timeslice);
 	bool update_timeslice(const Timeslice& ts);
+	bool remove_timeslice(int id);
 	bool update_issue(const Issue& issue);
 	bool update_issues(const IssueMap& issue_map);
 	bool add_issues(IssueMap& issue_map);

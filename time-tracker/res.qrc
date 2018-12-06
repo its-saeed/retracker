@@ -19,5 +19,7 @@
         <file>res/pause.png</file>
         <file>res/cat.png</file>
         <file>res/heart.png</file>
+        <file>res/delete.png</file>
+        <file>res/add.png</file>
     </qresource>
 </RCC>
