@@ -2,6 +2,8 @@
 #define TODAYSUMMARYWIDGET_H
 
 #include "Statistics.h"
+#include "IssueManager.h"
+
 #include <QWidget>
 #include <QTimer>
 
@@ -17,7 +19,10 @@ public:
 	explicit TodaySummaryWidget(QWidget *parent = nullptr);
 	~TodaySummaryWidget();
 	void change_today_start_to(const QDateTime& today);
-	void add_useful_time_slice(const std::chrono::minutes& mins);
+	void set_issue_manager(const IssueManager* issue_manager)
+	{
+		this->issue_manager = issue_manager;
+	}
 
 public slots:
 	void update();
@@ -31,6 +36,7 @@ private:
 	Ui::TodaySummaryWidget *ui;
 	Statistics today_stats;
 	QTimer update_today_duration_timer;
+	const IssueManager* issue_manager;
 };
 
 #endif // TODAYSUMMARYWIDGET_H

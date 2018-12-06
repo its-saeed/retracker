@@ -97,6 +97,11 @@ std::chrono::seconds Issue::get_total_duration(bool applied) const
 	return timeslice_manager.get_total_duration(applied);
 }
 
+std::chrono::seconds Issue::get_total_duration(const QDate& date) const
+{
+	return timeslice_manager.get_total_duration(date);
+}
+
 QString Issue::get_duration_string(const QDate& date) const
 {
 	return QString::fromStdString(commons::to_string(get_duration(date)));
@@ -194,6 +199,16 @@ std::chrono::seconds TimesliceManager::get_total_duration(bool applied) const
 	std::chrono::seconds duration{0};
 	for (const auto& ts : timeslices)
 		if (ts.second.applied_to_redmine == applied)
+			duration += ts.second.get_duration();
+
+	return duration;
+}
+
+std::chrono::seconds TimesliceManager::get_total_duration(const QDate& date) const
+{
+	std::chrono::seconds duration{0};
+	for (const auto& ts : timeslices)
+		if (ts.second.start.date() == date)			// Assumed that timeslice start and end is in same day
 			duration += ts.second.get_duration();
 
 	return duration;

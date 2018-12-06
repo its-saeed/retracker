@@ -37,6 +37,7 @@ public:
 	std::chrono::seconds get_duration(const QDate& date, bool applied) const;
 	std::chrono::seconds get_total_duration() const;
 	std::chrono::seconds get_total_duration(bool applied) const;
+	std::chrono::seconds get_total_duration(const QDate& date) const;
 	TimesliceVector get_timeslices() const;
 private:
 	TimesliceVector timeslices;
@@ -75,6 +76,7 @@ public:
 	std::chrono::seconds get_duration(const QDate& date, bool applied) const;
 	std::chrono::seconds get_total_duration() const;
 	std::chrono::seconds get_total_duration(bool applied) const;
+	std::chrono::seconds get_total_duration(const QDate& date) const;
 
 	QString get_duration_string(const QDate& date) const;
 	QString get_duration_string(const QDate& date, bool applied) const;

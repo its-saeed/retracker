@@ -70,6 +70,18 @@ std::chrono::seconds IssueManager::get_total_useful_durations(Issue::Id id) cons
 	return get_issue_by_id(id).get_total_duration();
 }
 
+std::chrono::seconds IssueManager::get_total_useful_durations(const QDate& date) const
+{
+	std::chrono::seconds total_duration{};
+	for (const auto& i : issues)
+	{
+		const Issue& issue = i.second;
+		total_duration += issue.get_total_duration(date);
+	}
+
+	return total_duration;
+}
+
 std::chrono::seconds IssueManager::get_duration(Issue::Id id, const QDate& date) const
 {
 	return get_issue_by_id(id).get_duration(date);

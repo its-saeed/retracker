@@ -25,6 +25,7 @@ public:
 
 	std::chrono::seconds get_total_useful_durations() const;
 	std::chrono::seconds get_total_useful_durations(Issue::Id id) const;
+	std::chrono::seconds get_total_useful_durations(const QDate& date) const;
 	std::chrono::seconds get_duration(Issue::Id id, const QDate& date) const;
 
 	/// Add duration for currently selected issue

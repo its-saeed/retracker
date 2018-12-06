@@ -116,8 +116,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
 void MainWindow::on_stop_watch_stopped()
 {
-	std::chrono::minutes ellapsed_minutes = ui->wdg_stop_watch->get_minutes();
-	ui->wdg_today_summary->add_useful_time_slice(ellapsed_minutes);
 	issue_manager.add_timeslice_for_selected_issue(ui->wdg_stop_watch->get_timeslice());
 }
 
