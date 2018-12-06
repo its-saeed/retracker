@@ -97,6 +97,7 @@
       <widget class="QCheckBox" name="chb_add_if_not_exist">
        <property name="font">
         <font>
+         <family>B Yekan</family>
          <pointsize>10</pointsize>
          <weight>50</weight>
          <bold>false</bold>

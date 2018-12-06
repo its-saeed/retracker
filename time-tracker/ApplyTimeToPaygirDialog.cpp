@@ -41,31 +41,20 @@ void ApplyTimeToPaygirDialog::add_issue_to_table(const Issue& issue)
 	// Issue ID Item in table
 	auto issue_id_item = new QTableWidgetItem(QString::number(issue.get_id()));
 	ui->tblw_issues->setItem(row_count, ISSUE_ID_COLUMN, issue_id_item);
-	//issue_id_item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEditable);
 	issue_id_item->setCheckState(Qt::Unchecked);
-	set_color_for_item(issue_id_item, row_count);
 
 	auto issue_subject_item = new QTableWidgetItem(issue.get_subject());
 	ui->tblw_issues->setItem(row_count, ISSUE_SUBJECT_COLUMN, issue_subject_item);
-	set_color_for_item(issue_subject_item, row_count);
 
 	auto issue_total_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	ui->tblw_issues->setItem(row_count, ISSUE_TOTAL_TIME_COLUMN, issue_total_time_item);
-	set_color_for_item(issue_total_time_item, row_count);
 
 	auto issue_total_applied_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	ui->tblw_issues->setItem(row_count, ISSUE_PERFECT_TIME_COLUMN, issue_total_applied_time_item);
-	set_color_for_item(issue_total_applied_time_item, row_count);
 
 	auto comments_item = new QTableWidgetItem("");
+	comments_item->setFlags(Qt::ItemIsEditable);
 	ui->tblw_issues->setItem(row_count, ISSUE_COMMENTS_COLUMN, comments_item);
-	set_color_for_item(comments_item, row_count);
-}
-
-void ApplyTimeToPaygirDialog::set_color_for_item(QTableWidgetItem* item, int row)
-{
-	if (row % 2)
-		item->setBackground(QBrush(QColor("lightgray")));
 }
 
 void ApplyTimeToPaygirDialog::on_btn_apply_times_clicked()
@@ -86,7 +75,8 @@ void ApplyTimeToPaygirDialog::on_btn_apply_times_clicked()
 	}
 }
 
-void ApplyTimeToPaygirDialog::add_time_entry_to_peygir(const QString& issue_id, const QString& total_time, const QString& total_perfect_time, const QString& comment)
+void ApplyTimeToPaygirDialog::add_time_entry_to_peygir(const QString& issue_id, const QString& total_time,
+													   const QString& total_perfect_time, const QString& comment)
 {
 	QString date = QLocale(QLocale::English).toString(QDate::currentDate(), "yyyy-MM-dd");
 	const QString username = Settings::instance().get_username();

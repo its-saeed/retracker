@@ -38,9 +38,11 @@ signals:
 	void started();
 	void dismissed();
 	void time_updated(const QString timestr);
-private slots:
+
+public slots:
 	void on_btn_stop_clicked();
 	void on_btn_start_clicked();
+private slots:
 	void on_btn_pause_clicked();
 	void on_btn_dismiss_clicked();
 	void on_issue_timer_timeout();

@@ -1,6 +1,5 @@
 #include "IssueTableWidget.h"
 #include <QHeaderView>
-#include <QDebug>
 
 IssueTableWidget::IssueTableWidget(QWidget* parent)
 : QTableWidget(parent)
@@ -11,6 +10,7 @@ IssueTableWidget::IssueTableWidget(QWidget* parent)
 	auto header = horizontalHeader();
 	header->setSectionResizeMode(QHeaderView::ResizeToContents);
 	setEditTriggers(QAbstractItemView::NoEditTriggers);
+	setAlternatingRowColors(true);
 }
 
 void IssueTableWidget::add_issue(const Issue& issue)
@@ -24,23 +24,18 @@ void IssueTableWidget::add_issue(const Issue& issue)
 	// Issue ID Item in table
 	auto issue_id_item = new QTableWidgetItem(QString::number(issue.get_id()));
 	setItem(row_count, ISSUE_ID_COLUMN, issue_id_item);
-	set_color(issue_id_item, row_count);
 
 	auto issue_subject_item = new QTableWidgetItem(issue.get_subject());
 	setItem(row_count, ISSUE_SUBJECT_COLUMN, issue_subject_item);
-	set_color(issue_subject_item, row_count);
 
 	auto issue_total_time_item = new QTableWidgetItem(issue.get_total_duration_string());
 	setItem(row_count, ISSUE_TOTAL_TIME_COLUMN, issue_total_time_item);
-	set_color(issue_total_time_item, row_count);
 
 	auto issue_total_applied_time_item = new QTableWidgetItem(issue.get_total_duration_string(true));
 	setItem(row_count, ISSUE_TOTAL_APPLIED_TIME_COLUMN, issue_total_applied_time_item);
-	set_color(issue_total_applied_time_item, row_count);
 
 	auto issue_total_unapplied_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	setItem(row_count, ISSUE_TOTAL_UNAPPLIED_TIME_COLUMN, issue_total_unapplied_time_item);
-	set_color(issue_total_unapplied_time_item, row_count);
 
 	issue_id_to_table_row_map.insert(issue.get_id(), row_count);
 }
@@ -59,7 +54,6 @@ void IssueTableWidget::update_issue(const Issue& issue)
 
 void IssueTableWidget::item_clicked(int row, int)
 {
-	qDebug() << item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
 	Issue::Id issue_id = item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
 	emit issue_selected(issue_id);
 }
@@ -68,10 +62,4 @@ void IssueTableWidget::on_item_double_clicked(int row, int col)
 {
 	Issue::Id issue_id = item(row, IssueTableWidget::ISSUE_ID_COLUMN)->text().toInt();
 	emit issue_double_clicked(issue_id);
-}
-
-void IssueTableWidget::set_color(QTableWidgetItem* item, int row)
-{
-	if (row % 2)
-		item->setBackground(QBrush(QColor("lightgray")));
 }

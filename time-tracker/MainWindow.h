@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QSystemTrayIcon>
+
 #include "Statistics.h"
 #include "IssueManager.h"
 
@@ -25,6 +27,7 @@ private slots:
 	void on_btn_update_issues_clicked();
 	void on_issue_selected(Issue::Id id);
 	void on_stop_watch_stopped();
+	void on_stop_watch_time_updated(const QString& str);
 	void on_btn_apply_times_clicked();
 	void on_btn_add_issue_clicked();
 	void on_issue_added(Issue::Id id);
@@ -36,9 +39,12 @@ protected:
 
 private:
 	void open_database();
+	void create_system_tray_menu();
 
 	Ui::MainWindow *ui;
 	IssueManager issue_manager;
+	QSystemTrayIcon tray_icon;
+	QAction* stop_action;
 };
 
 #endif // MAINWINDOW_H

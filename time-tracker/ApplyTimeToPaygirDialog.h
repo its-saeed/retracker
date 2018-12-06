@@ -29,7 +29,6 @@ private:
 
 	void update_issues();
 	void add_issue_to_table(const Issue& issue);
-	void set_color_for_item(QTableWidgetItem* item, int row);
 	void add_time_entry_to_peygir(const QString& issue_id, const QString& total_time, const QString& total_perfect_time,
 	const QString& comment);
 

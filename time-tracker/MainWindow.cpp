@@ -7,6 +7,8 @@
 #include <QDir>
 #include <QInputDialog>
 #include <QKeyEvent>
+#include <QAction>
+#include <QMenu>
 
 #include "UserPassDialog.h"
 #include "TimePickerDialog.h"
@@ -22,11 +24,16 @@
 MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent),
 ui(new Ui::MainWindow)
+, tray_icon(QIcon(":/ui/res/timer.png"), this)
 {
 	ui->setupUi(this);
+	create_system_tray_menu();
+
 	connect(ui->wdg_issue_categories, &IssueCategoryManager::issue_selected, this, &MainWindow::on_issue_selected);
 	connect(ui->wdg_issue_categories, &IssueCategoryManager::issue_edit_requested, this, &MainWindow::on_issue_edit_triggered);
 	connect(ui->wdg_stop_watch, &StopWatchWidget::stopped, this, &MainWindow::on_stop_watch_stopped);
+	connect(ui->wdg_stop_watch, &StopWatchWidget::started, [this](){this->stop_action->setEnabled(true);});
+	connect(ui->wdg_stop_watch, &StopWatchWidget::time_updated, this, &MainWindow::on_stop_watch_time_updated);
 	connect(ui->wdg_stop_watch, &StopWatchWidget::dismissed, ui->wdg_today_summary, &TodaySummaryWidget::update);
 	connect(&issue_manager, &IssueManager::issue_added, this, &MainWindow::on_issue_added);
 	connect(&issue_manager, &IssueManager::issue_map_updated, ui->wdg_issue_categories, &IssueCategoryManager::update_issue_tables);
@@ -100,6 +107,31 @@ void MainWindow::open_database()
 	issue_manager.set_issues(std::move(issues));
 }
 
+void MainWindow::create_system_tray_menu()
+{
+	QMenu* menu = new QMenu(this);
+
+	stop_action = new QAction(tr("&Stop"), this);
+	connect(stop_action, &QAction::triggered, ui->wdg_stop_watch, &StopWatchWidget::on_btn_stop_clicked);
+	menu->addAction(stop_action);
+	stop_action->setEnabled(false);
+
+	menu->addSeparator();
+	QAction* minimize_action = new QAction(tr("Mi&nimize"), this);
+	connect(minimize_action, &QAction::triggered, this, &QWidget::hide);
+	menu->addAction(minimize_action);
+
+	QAction* restore_action = new QAction(tr("&Restore"), this);
+	connect(restore_action, &QAction::triggered, this, &QWidget::showNormal);
+	menu->addAction(restore_action);
+
+	QAction* quit_action = new QAction(tr("&Quit"), this);
+	connect(quit_action, &QAction::triggered, qApp, &QCoreApplication::quit);
+	menu->addAction(quit_action);
+
+	tray_icon.setContextMenu(menu);
+}
+
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() == Qt::Key_F && QApplication::keyboardModifiers() && Qt::ControlModifier)
@@ -110,15 +142,21 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
-//	if (!DatabaseManager::instance().update_issues(issue_manager.get_issues()))
-//		QMessageBox::critical(this, "Database", "Updating issues in database failed. " + DatabaseManager::instance().get_last_error());
-
-	QMainWindow::closeEvent(event);
+	tray_icon.showMessage("سلام :)", tray_icon.toolTip());
+	hide();
+	event->ignore();
 }
 
 void MainWindow::on_stop_watch_stopped()
 {
 	issue_manager.add_timeslice_for_selected_issue(ui->wdg_stop_watch->get_timeslice());
+	tray_icon.setToolTip(tr("بی کار و الاف :)"));
+	stop_action->setEnabled(false);
+}
+
+void MainWindow::on_stop_watch_time_updated(const QString& str)
+{
+	tray_icon.setToolTip(QString("در حال کار روی %1 برای مدت زمان %2").arg(issue_manager.get_selected_issue().get_subject()).arg(str));
 }
 
 void MainWindow::on_btn_apply_times_clicked()
