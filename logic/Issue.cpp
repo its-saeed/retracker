@@ -77,6 +77,11 @@ bool Issue::delete_timeslice(int id)
 	return timeslice_manager.delete_timeslice(id);
 }
 
+void Issue::set_timeslices_applied_to_redmine()
+{
+	timeslice_manager.set_timeslices_applied_to_redmine();
+}
+
 std::chrono::seconds Issue::get_duration(const QDate& date) const
 {
 	return timeslice_manager.get_duration(date);
@@ -159,6 +164,12 @@ bool TimesliceManager::delete_timeslice(int id)
 	timeslices.erase(id);
 
 	return true;
+}
+
+void TimesliceManager::set_timeslices_applied_to_redmine()
+{
+	for (auto& i : timeslices)
+		i.second.applied_to_redmine = true;
 }
 
 std::chrono::seconds TimesliceManager::get_duration(const QDate& date) const

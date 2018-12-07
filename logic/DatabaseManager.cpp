@@ -157,6 +157,15 @@ bool DatabaseManager::remove_timeslice(int id)
 	return execute_query(query_string);
 }
 
+bool DatabaseManager::set_issue_timeslices_applied_to_redmine(Issue::Id id)
+{
+	static constexpr const char* UPDATE_ISSUE_QUERY_STRING = "UPDATE timeslice SET applied_to_redmine = 1 "
+			" WHERE issue_id = %4";
+	QString query_string = QString(UPDATE_ISSUE_QUERY_STRING).arg(id);
+
+	return execute_query(query_string);
+}
+
 bool DatabaseManager::update_issue(const Issue& issue)
 {
 	static constexpr const char* UPDATE_ISSUE_QUERY_STRING = "UPDATE issues SET subject = '%1', "

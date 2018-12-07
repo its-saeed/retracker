@@ -39,6 +39,7 @@ public:
 	bool load_issue_from_peygir(int issue_id, const QString& username, const QString& pass);
 	bool load_issues_from_peygir(const QString& username, const QString& pass);
 	bool load_from_file(const QString& path);
+	bool set_issue_timeslices_applied_to_redmine(Issue::Id id);
 signals:
 	void issue_updated(Issue::Id id);
 	void issue_added(Issue::Id id);

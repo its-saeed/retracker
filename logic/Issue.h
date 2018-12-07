@@ -33,6 +33,7 @@ public:
 	bool add_timeslice(const Timeslice& timeslice);
 	bool update_timeslice(const Timeslice& timeslice);
 	bool delete_timeslice(int id);
+	void set_timeslices_applied_to_redmine();
 	std::chrono::seconds get_duration(const QDate& date) const;
 	std::chrono::seconds get_duration(const QDate& date, bool applied) const;
 	std::chrono::seconds get_total_duration() const;
@@ -72,6 +73,7 @@ public:
 	bool add_timeslice(const Timeslice& timeslice);
 	bool update_timeslice(const Timeslice& ts);
 	bool delete_timeslice(int id);
+	void set_timeslices_applied_to_redmine();
 	std::chrono::seconds get_duration(const QDate& date) const;
 	std::chrono::seconds get_duration(const QDate& date, bool applied) const;
 	std::chrono::seconds get_total_duration() const;

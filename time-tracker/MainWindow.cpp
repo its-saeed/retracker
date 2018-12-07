@@ -9,6 +9,7 @@
 #include <QKeyEvent>
 #include <QAction>
 #include <QMenu>
+#include <QApplication>
 
 #include "UserPassDialog.h"
 #include "TimePickerDialog.h"
@@ -38,6 +39,7 @@ ui(new Ui::MainWindow)
 	connect(&issue_manager, &IssueManager::issue_added, this, &MainWindow::on_issue_added);
 	connect(&issue_manager, &IssueManager::issue_map_updated, ui->wdg_issue_categories, &IssueCategoryManager::update_issue_tables);
 	connect(&issue_manager, &IssueManager::issue_updated, [this](){this->ui->wdg_today_summary->update();});
+	connect(this->ui->btn_exit, &QPushButton::clicked, qApp, &QApplication::quit);
 
 	ui->wdg_issue_categories->set_issue_manager(&issue_manager);
 	ui->wdg_today_summary->set_issue_manager(&issue_manager);
@@ -211,4 +213,9 @@ void MainWindow::on_issue_edit_triggered(Issue::Id id)
 	dlg.update_for_issue(id);
 
 	dlg.exec();
+}
+
+void MainWindow::on_btn_about_clicked()
+{
+	QMessageBox::information(this, "About", "Created By Saeed Dadkhah, dadkhah@mahsan.co");
 }

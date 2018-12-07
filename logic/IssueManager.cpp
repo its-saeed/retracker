@@ -168,6 +168,16 @@ bool IssueManager::load_from_file(const QString& path)
 	return true;
 }
 
+bool IssueManager::set_issue_timeslices_applied_to_redmine(Issue::Id id)
+{
+	if (!issue_exists(id))
+		return false;
+
+	get_issue_by_id(id).set_timeslices_applied_to_redmine();
+	issue_updated(id);
+	return true;
+}
+
 void IssueManager::set_issues(IssueMap&& issue_map)
 {
 	issues = issue_map;
