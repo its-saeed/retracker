@@ -20,6 +20,10 @@ public:
 private slots:
 	void on_btn_apply_times_clicked();
 
+	void on_chb_select_all_toggled(bool checked);
+
+	void on_btn_today_clicked();
+
 private:
 	static constexpr int ISSUE_ID_COLUMN = 0;
 	static constexpr int ISSUE_SUBJECT_COLUMN = 1;

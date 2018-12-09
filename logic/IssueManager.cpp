@@ -10,13 +10,10 @@ IssueManager::IssueManager(QObject* parent)
 : QObject(parent)
 , selected_issue_id(INVALID_ISSUE_ID)		// Invalid issue id, i.e. no issue is selected at first
 {
-
 }
 
 bool IssueManager::issue_exists(Issue::Id id) const
 {
-	for (const auto& i : issues)
-		qDebug() << "S: " << id << i.first << i.second.get_subject();
 	return issues.find(id) != issues.end();
 }
 
@@ -215,7 +212,7 @@ const Issue& IssueManager::get_selected_issue() const
 
 bool IssueManager::load_issue_from_peygir(int issue_id, const QString& username, const QString& pass)
 {
-	ProccessRunner process("scripts/find_issue.py", QStringList() << username << pass << QString::number(issue_id));
+	ProccessRunner process("scripts/find_issue.exe", QStringList() << username << pass << QString::number(issue_id));
 	process.start_and_wait();
 
 	// TOOD: create a logger
@@ -229,11 +226,11 @@ bool IssueManager::load_issue_from_peygir(int issue_id, const QString& username,
 
 bool IssueManager::load_issues_from_peygir(const QString& username, const QString& pass)
 {
-	ProccessRunner process("scripts/red.py", QStringList() << username << pass);
+	ProccessRunner process("scripts/red.exe", QStringList() << username << pass);
 	process.start_and_wait();
 	// TODO, create a logger
 	//ui->pte_logs->appendPlainText(process.readAllStandardError());
-	if (!load_from_file("scripts/.issues.txt"))
+	if (!load_from_file(".issues.txt"))
 		return false;
 
 	return true;

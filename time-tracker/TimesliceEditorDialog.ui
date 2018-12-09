@@ -38,6 +38,12 @@ color:rgb(255, 255, 255);
    </item>
    <item>
     <widget class="QTableWidget" name="tblw_timeslices">
+     <property name="font">
+      <font>
+       <family>B Yekan</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
      </property>
@@ -99,6 +105,8 @@ color:rgb(255, 255, 255);
         <widget class="QLabel" name="label_4">
          <property name="font">
           <font>
+           <family>B Nazanin</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -119,6 +127,8 @@ color:rgb(255, 255, 255);
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
+           <family>B Nazanin</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -139,6 +149,12 @@ color:rgb(255, 255, 255);
      </item>
      <item>
       <widget class="QGroupBox" name="groupBox">
+       <property name="font">
+        <font>
+         <family>B Mehr</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -150,10 +166,10 @@ color:rgb(255, 255, 255);
          <widget class="QLabel" name="label">
           <property name="font">
            <font>
-            <family>B Yekan</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
+            <family>B Nazanin</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -172,10 +188,10 @@ color:rgb(255, 255, 255);
          <widget class="QLabel" name="label_2">
           <property name="font">
            <font>
-            <family>B Yekan</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
+            <family>B Nazanin</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -202,6 +218,9 @@ color:rgb(255, 255, 255);
               <family>B Yekan</family>
               <pointsize>10</pointsize>
              </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="text">
              <string>اعمال</string>
@@ -238,6 +257,12 @@ color:rgb(255, 255, 255);
      </item>
      <item>
       <widget class="QGroupBox" name="groupBox_2">
+       <property name="font">
+        <font>
+         <family>B Mehr</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -249,10 +274,10 @@ color:rgb(255, 255, 255);
          <widget class="QLabel" name="label_6">
           <property name="font">
            <font>
-            <family>B Yekan</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
+            <family>B Nazanin</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -272,6 +297,9 @@ color:rgb(255, 255, 255);
               <family>B Yekan</family>
               <pointsize>10</pointsize>
              </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="text">
              <string>اضافه کردن</string>
@@ -314,10 +342,10 @@ color:rgb(255, 255, 255);
          <widget class="QLabel" name="label_5">
           <property name="font">
            <font>
-            <family>B Yekan</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
+            <family>B Nazanin</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -337,6 +365,12 @@ color:rgb(255, 255, 255);
      </item>
      <item>
       <widget class="QGroupBox" name="groupBox_3">
+       <property name="font">
+        <font>
+         <family>B Mehr</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -348,10 +382,10 @@ color:rgb(255, 255, 255);
          <widget class="QLabel" name="label_8">
           <property name="font">
            <font>
-            <family>B Yekan</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
+            <family>B Nazanin</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -371,6 +405,9 @@ color:rgb(255, 255, 255);
               <family>B Yekan</family>
               <pointsize>10</pointsize>
              </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="text">
              <string>حذف کردن</string>

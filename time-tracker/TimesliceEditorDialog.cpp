@@ -13,6 +13,10 @@ TimesliceEditorDialog::TimesliceEditorDialog(QWidget *parent) :
 	ui(new Ui::TimesliceEditorDialog)
 {
 	ui->setupUi(this);
+	ui->dte_add_end->setDateTime(QDateTime::currentDateTime());
+	ui->dte_add_start->setDateTime(QDateTime::currentDateTime());
+	ui->dte_update_end->setDateTime(QDateTime::currentDateTime());
+	ui->dte_update_start->setDateTime(QDateTime::currentDateTime());
 }
 
 TimesliceEditorDialog::~TimesliceEditorDialog()

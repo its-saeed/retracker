@@ -61,16 +61,17 @@ inline QDateTime get_today(const QDateTime& current_datetime, const QDateTime& p
 inline double time_to_double(const QString& time)		// input: 3:30 -> 3.5
 {
 	QStringList parts = time.split(":");
-	if (parts.size() != 2)
+	if (parts.size() != 3)
 		return 0;
 
 	int hour = parts.at(0).toInt();
 	int minute = parts.at(1).toInt();
+	int seconds = parts.at(2).toInt();
 
-	if (minute >= 60)
+	if (minute >= 60 || seconds >= 60)
 		return 0;
 
-	return hour + (minute / 60.0);
+	return hour + (minute / 60.0) + (seconds / (60.0 * 60.0));
 }
 
 }

@@ -98,7 +98,7 @@ void MainWindow::on_btn_update_issues_clicked()
 
 void MainWindow::open_database()
 {
-	if (!DatabaseManager::instance().open_database("d:/retracker.db"))
+	if (!DatabaseManager::instance().open_database("retracker.db"))
 	{
 		QMessageBox::warning(this, "Database", "Couldn't open the database, " + DatabaseManager::instance().get_last_error());
 		return;

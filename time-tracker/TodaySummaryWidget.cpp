@@ -33,8 +33,9 @@ void TodaySummaryWidget::update()
 
 	set_today_start_time(today_stats.day_start_string());
 	set_today_work_durations(today_stats.today_duration_string(QTime::currentTime()),
-							 QString::fromStdString(commons::to_string(issue_manager->get_total_useful_durations(QDate::currentDate()))),
-							 static_cast<int>(today_stats.today_efficiency(QTime::currentTime())));
+			QString::fromStdString(commons::to_string(issue_manager->get_total_useful_durations(QDate::currentDate()))),
+			static_cast<int>(today_stats.today_efficiency(QTime::currentTime(),
+			issue_manager->get_total_useful_durations(QDate::currentDate()))));
 }
 
 void TodaySummaryWidget::set_today_start_time(const QString& day_start)

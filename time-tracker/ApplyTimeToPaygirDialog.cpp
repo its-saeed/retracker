@@ -28,7 +28,7 @@ void ApplyTimeToPaygirDialog::update_issues()
 	{
 		const Issue& issue = kv.second;
 		if (issue.get_total_duration(false) == std::chrono::seconds(0)
-				|| issue.get_id() >= 1000000)		// id > 1000000 is for user defined issues
+				/*|| issue.get_id() >= 1000000*/)		// id > 1000000 is for user defined issues
 			continue;
 
 		add_issue_to_table(issue);
@@ -57,7 +57,7 @@ void ApplyTimeToPaygirDialog::add_issue_to_table(const Issue& issue)
 	auto issue_total_applied_time_item = new QTableWidgetItem(issue.get_total_duration_string(false));
 	ui->tblw_issues->setItem(row_count, ISSUE_PERFECT_TIME_COLUMN, issue_total_applied_time_item);
 
-	auto comments_item = new QTableWidgetItem("");
+	auto comments_item = new QTableWidgetItem("Added by Retracker");
 	ui->tblw_issues->setItem(row_count, ISSUE_COMMENTS_COLUMN, comments_item);
 }
 
@@ -95,8 +95,19 @@ void ApplyTimeToPaygirDialog::add_time_entry_to_peygir(const QString& issue_id, 
 	<< "-c" << comment << "-a" << "9";
 
 	QProcess process;
-	process.start("scripts/create_time_entry.py", arguments);
+	process.start("scripts/create_time_entry.exe", arguments);
 	process.waitForFinished();
 	qDebug() << process.readAllStandardError();
 	qDebug() << arguments;
+}
+
+void ApplyTimeToPaygirDialog::on_chb_select_all_toggled(bool checked)
+{
+	for (int i = 0; i < ui->tblw_issues->rowCount(); ++i)
+		ui->tblw_issues->item(i, 0)->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
+}
+
+void ApplyTimeToPaygirDialog::on_btn_today_clicked()
+{
+
 }
