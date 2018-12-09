@@ -206,8 +206,8 @@ void TimesliceEditorDialog::on_btn_add_timeslice_clicked()
 		return;
 	}
 
-	Timeslice ts{get_current_timeslice_id(), ui->dte_update_start->dateTime(),
-				ui->dte_update_end->dateTime(), get_current_timeslice_applied_to_redmine()};
+	Timeslice ts{get_current_timeslice_id(), ui->dte_add_start->dateTime(),
+				ui->dte_add_end->dateTime(), get_current_timeslice_applied_to_redmine()};
 	int ts_id = issue_manager->add_timeslice(current_issue_id, ts);
 	ts.id = ts_id;
 

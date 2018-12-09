@@ -5,7 +5,7 @@ import argparse
 import sys
 import requests
 
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 import base64
 
@@ -17,7 +17,7 @@ class MyHtmlParser(HTMLParser):
 
 def login(username, password):
 
-	base64_of_username_password = base64.b64encode(username + ":" + password)
+	base64_of_username_password = base64.b64encode(str(username + ":" + password).encode("UTF-8"))
 	session = requests.Session()
 	
 	response = session.get("http://projects.mahsan.co/login")
@@ -62,7 +62,7 @@ def login(username, password):
 	headers = {
 		"Connection" : "keep-alive",
 		"Cache-Control" : "max-age=0",
-		"Authorization" : "Basic " + base64_of_username_password,
+		"Authorization" : "Basic " + base64_of_username_password.decode("ascii"),
 		"Upgrade-Insecure-Requests" : "1",
 		"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36",
 		"Content-Type" : "application/x-www-form-urlencoded",
@@ -83,7 +83,7 @@ def login(username, password):
 
 def create_time_entry(username, password, authenticity_token, cookies, issue_id, date, hours, ideal_hours, comments, activity_id):
 
-	base64_of_username_password = base64.b64encode(username + ":" + password)
+	base64_of_username_password = base64.b64encode(str(username + ":" + password).encode("UTF-8"))
 	
 	URL = "http://projects.mahsan.co/time_entries"
 	
@@ -108,7 +108,7 @@ def create_time_entry(username, password, authenticity_token, cookies, issue_id,
 	headers = {
 		"Connection" : "keep-alive",
 		"Cache-Control" : "max-age=0",
-		"Authorization" : "Basic " + base64_of_username_password,
+		"Authorization" : "Basic " + base64_of_username_password.decode("ascii"),
 		"Origin" : "http://projects.mahsan.co",
 		"Upgrade-Insecure-Requests" : "1",
 		"User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36",

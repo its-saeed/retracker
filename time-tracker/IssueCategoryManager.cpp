@@ -118,6 +118,8 @@ void IssueCategoryManager::on_led_filter_returnPressed()
 		update_issue_tables();		// TODO: change with more efficient method
 		filter_issues(QString::number(issue_id));
 	}
+	else
+		QMessageBox::warning(this, "Error", "Error loading issue. " + issue_manager->get_last_error());
 }
 
 void IssueCategoryManager::on_issue_manager_issue_updated(Issue::Id id)
