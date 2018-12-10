@@ -162,28 +162,6 @@ color:rgb(255, 255, 255);
         <string>به روز رسانی</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <family>B Yekan</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>شروع</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QDateTimeEdit" name="dte_update_start">
-          <property name="displayFormat">
-           <string>AP mm:h yyyy/d/M</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="font">
@@ -199,19 +177,12 @@ color:rgb(255, 255, 255);
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QDateTimeEdit" name="dte_update_end">
-          <property name="displayFormat">
-           <string>AP mm:h yyyy/d/M</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
+        <item row="2" column="0" colspan="3">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QPushButton" name="btn_apply">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="font">
              <font>
@@ -252,6 +223,55 @@ color:rgb(255, 255, 255);
           </item>
          </layout>
         </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>B Yekan</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>شروع</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QDateEdit" name="de_update_start">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QTimeEdit" name="te_update_start">
+          <property name="displayFormat">
+           <string>hh:mm:ss</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDateEdit" name="de_update_end">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QTimeEdit" name="te_update_end">
+          <property name="displayFormat">
+           <string>hh:mm:ss</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -285,7 +305,7 @@ color:rgb(255, 255, 255);
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2">
+        <item row="2" column="0" colspan="3">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QPushButton" name="btn_add_timeslice">
@@ -331,13 +351,6 @@ color:rgb(255, 255, 255);
           </item>
          </layout>
         </item>
-        <item row="1" column="1">
-         <widget class="QDateTimeEdit" name="dte_add_end">
-          <property name="displayFormat">
-           <string>AP mm:h yyyy/d/M</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_5">
           <property name="font">
@@ -354,9 +367,36 @@ color:rgb(255, 255, 255);
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QDateTimeEdit" name="dte_add_start">
+         <widget class="QDateEdit" name="de_add_start">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QTimeEdit" name="te_add_start">
           <property name="displayFormat">
-           <string>AP mm:h yyyy/d/M</string>
+           <string>hh:mm:ss</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDateEdit" name="de_add_end">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QTimeEdit" name="te_add_end">
+          <property name="displayFormat">
+           <string>hh:mm:ss</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

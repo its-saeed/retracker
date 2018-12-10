@@ -13,10 +13,15 @@ TimesliceEditorDialog::TimesliceEditorDialog(QWidget *parent) :
 	ui(new Ui::TimesliceEditorDialog)
 {
 	ui->setupUi(this);
-	ui->dte_add_end->setDateTime(QDateTime::currentDateTime());
-	ui->dte_add_start->setDateTime(QDateTime::currentDateTime());
-	ui->dte_update_end->setDateTime(QDateTime::currentDateTime());
-	ui->dte_update_start->setDateTime(QDateTime::currentDateTime());
+	ui->de_add_end->setDate(QDate::currentDate());
+	ui->de_add_start->setDate(QDate::currentDate());
+	ui->te_add_end->setTime(QTime::currentTime());
+	ui->te_add_start->setTime(QTime::currentTime());
+
+	ui->de_update_end->setDate(QDate::currentDate());
+	ui->de_update_start->setDate(QDate::currentDate());
+	ui->te_update_end->setTime(QTime::currentTime());
+	ui->te_update_start->setTime(QTime::currentTime());
 }
 
 TimesliceEditorDialog::~TimesliceEditorDialog()
@@ -71,11 +76,15 @@ void TimesliceEditorDialog::on_tblw_timeslices_currentCellChanged(int currentRow
 	QDateTime end_date_time(QDate::fromString(ui->tblw_timeslices->item(currentRow, 3)->text()),
 							  QTime::fromString(ui->tblw_timeslices->item(currentRow, 4)->text()));
 
-	ui->dte_update_start->setDateTime(start_date_time);
-	ui->dte_update_end->setDateTime(end_date_time);
+	ui->te_update_start->setTime(start_date_time.time());
+	ui->de_update_start->setDate(start_date_time.date());
+	ui->te_update_end->setTime(end_date_time.time());
+	ui->de_update_end->setDate(end_date_time.date());
 
-	ui->dte_add_start->setDateTime(start_date_time);
-	ui->dte_add_end->setDateTime(end_date_time);
+	ui->te_add_start->setTime(start_date_time.time());
+	ui->te_add_end->setTime(end_date_time.time());
+	ui->de_add_start->setDate(start_date_time.date());
+	ui->de_add_end->setDate(end_date_time.date());
 
 	update_duration_label(start_date_time.time(), end_date_time.time());
 }
@@ -85,22 +94,25 @@ void TimesliceEditorDialog::on_btn_apply_clicked()
 	if (get_current_timeslice_id() == 0)
 		return;
 
-	const QDateTime& start = ui->dte_update_start->dateTime();
-	const QDateTime& end = ui->dte_update_end->dateTime();
+	const QTime& start_time = ui->te_update_start->time();
+	const QDate& start_date = ui->de_update_start->date();
+	const QTime& end_time = ui->te_update_end->time();
+	const QDate& end_date = ui->de_update_end->date();
 
-	if (start > end)
-	{
-		QMessageBox::warning(this, "Apply", "Start is ahead of the end !");
-		return;
-	}
-
-	if (start.daysTo(end) != 0)
+	if (start_date.daysTo(end_date) != 0)
 	{
 		QMessageBox::warning(this, "Apply", "Start and end date should be in the same date!");
 		return;
 	}
 
-	Timeslice ts{get_current_timeslice_id(), ui->dte_update_start->dateTime(), ui->dte_update_end->dateTime(), get_current_timeslice_applied_to_redmine()};
+	if (start_time > end_time)
+	{
+		QMessageBox::warning(this, "Apply", "Start is ahead of the end !");
+		return;
+	}
+
+	Timeslice ts{get_current_timeslice_id(), QDateTime(start_date, start_time), QDateTime(end_date, end_time),
+				get_current_timeslice_applied_to_redmine()};
 	if (!issue_manager->update_timeslice(current_issue_id, ts) || !DatabaseManager::instance().update_timeslice(ts))
 	{
 		QMessageBox::warning(this, "Error", "Couldn't update the timeslice");
@@ -110,10 +122,10 @@ void TimesliceEditorDialog::on_btn_apply_clicked()
 	ui->btn_apply->setText("Applied...");
 	ui->btn_apply->setEnabled(false);
 
-	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 1)->setText(start.date().toString());
-	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 2)->setText(start.time().toString());
-	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 3)->setText(end.date().toString());
-	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 4)->setText(end.time().toString());
+	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 1)->setText(start_date.toString());
+	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 2)->setText(start_time.toString());
+	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 3)->setText(end_date.toString());
+	ui->tblw_timeslices->item(ui->tblw_timeslices->currentRow(), 4)->setText(end_time.toString());
 }
 
 int TimesliceEditorDialog::get_current_timeslice_id() const
@@ -147,7 +159,7 @@ void TimesliceEditorDialog::update_duration_label(const QTime& start, const QTim
 void TimesliceEditorDialog::on_dte_start_dateTimeChanged(const QDateTime &dateTime)
 {
 	const QTime start_time = dateTime.time();
-	const QTime end_time = ui->dte_update_end->dateTime().time();
+	const QTime end_time = ui->te_update_end->dateTime().time();
 	update_duration_label(start_time, end_time);
 	ui->btn_apply->setEnabled(true);
 	ui->btn_apply->setText("Apply");
@@ -155,7 +167,7 @@ void TimesliceEditorDialog::on_dte_start_dateTimeChanged(const QDateTime &dateTi
 
 void TimesliceEditorDialog::on_dte_end_dateTimeChanged(const QDateTime& dateTime)
 {
-	const QTime start_time = ui->dte_update_start->dateTime().time();
+	const QTime start_time = ui->te_update_start->dateTime().time();
 	const QTime end_time = dateTime.time();
 	update_duration_label(start_time, end_time);
 	ui->btn_apply->setEnabled(true);
@@ -191,23 +203,24 @@ void TimesliceEditorDialog::on_btn_add_timeslice_clicked()
 	if (get_current_timeslice_id() == 0)
 		return;
 
-	const QDateTime& start = ui->dte_add_start->dateTime();
-	const QDateTime& end = ui->dte_add_end->dateTime();
+	const QTime& start_time = ui->te_add_start->time();
+	const QDate& start_date = ui->de_add_start->date();
+	const QTime& end_time = ui->te_add_end->time();
+	const QDate& end_date = ui->de_add_end->date();
 
-	if (start > end)
-	{
-		QMessageBox::warning(this, "Add", "Start is ahead of the end !");
-		return;
-	}
-
-	if (start.daysTo(end) != 0)
+	if (start_date.daysTo(end_date) != 0)
 	{
 		QMessageBox::warning(this, "Add", "Start and end date should be in the same date!");
 		return;
 	}
 
-	Timeslice ts{get_current_timeslice_id(), ui->dte_add_start->dateTime(),
-				ui->dte_add_end->dateTime(), get_current_timeslice_applied_to_redmine()};
+	if (start_time > end_time)
+	{
+		QMessageBox::warning(this, "Add", "Start is ahead of the end !");
+		return;
+	}
+
+	Timeslice ts{get_current_timeslice_id(), QDateTime(start_date, start_time), QDateTime(end_date, end_time), false};
 	int ts_id = issue_manager->add_timeslice(current_issue_id, ts);
 	ts.id = ts_id;
 
